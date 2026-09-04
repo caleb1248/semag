@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="preload"
+      href="forced_square.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"
+    />
+    <script>
+      const BASE_URL = location.href;
+
+      async function replaceSvgsWithDataUrls() {
+        const images = await fetch("./images.json")
+          .then((r) => r.text())
+          .then((t) => JSON.parse(t));
+
+        const oldAppend = Element.prototype.appendChild;
+        Element.prototype.appendChild = function (child) {
+          if (this.innerHTML.includes('src="images')) {
+            for (const img of this.getElementsByTagName("img")) {
+              const src = img.getAttribute("src");
+              // console.log("img", src);
+              if (images[src]) img.setAttribute("src", images[src]);
+            }
+          }
+
+          return oldAppend.call(this, child);
+        };
+
+        const originalDescriptor = Object.getOwnPropertyDescriptor(
+          HTMLImageElement.prototype,
+          "src",
+        );
+
+        Object.defineProperty(HTMLImageElement.prototype, "src", {
+          ...originalDescriptor,
+
+          set(value) {
+            // console.log(`[Intercepted] Image src being set to: ${value}`);
+
+            originalDescriptor.set.call(this, images[value] || value);
+            if (value.endsWith(".svg") && !images[value]) console.warn("no image found for", value);
+          },
+        });
+      }
+
+      const oldWorkerCtor = Worker;
+      Worker = function (/** @type {string | URL} */ scriptURL, options) {
+        return new oldWorkerCtor(new URL(scriptURL, BASE_URL), options);
+      };
+
+      function patchFetchAndXHR() {
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function (method, url, ...args) {
+          console.warn("XHR open called with url", url);
+          return originalOpen.call(this, method, url, ...args);
+        };
+
+        const oldFetch = window.fetch;
+        window.fetch = function (input, init) {
+          if (!(input instanceof Request))
+            return oldFetch.call(this, new URL(input, BASE_URL), init);
+
+          return oldFetch.call(
+            this,
+            new Request(new URL(input.url, BASE_URL), input.clone()),
+            init,
+          );
+        };
+      }
+    </script>
+    <script defer="defer" src="error_screen.bundle.js"></script>
+    <script defer="defer" src="main.bundle.js"></script>
+  </head>
+  <body>
+    <canvas id="screen"></canvas>
+    <div id="ui"></div>
+    <div id="transition-layer"></div>
+  </body>
+</html>
