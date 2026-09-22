@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Clear Sans";
+  src: url("./fonts/light.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Clear Sans";
+  src: url("./fonts/regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Clear Sans";
+  src: url("./fonts/bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}

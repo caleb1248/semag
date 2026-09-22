@@ -1,17 +1,30 @@
-import { join } from "path";
-const subpathPrefix = "kcartylop";
+/// <reference types="bun" />
 
-Bun.serve({
-  port: 3000,
-  fetch(req) {
-    if (req.url.endsWith(".well-known/appspecific/com.chrom.devtools.json")) {
-      return new Response("not found", { status: 404 });
-    }
-    if (req.url.endsWith("/")) {
-      return new Response(Bun.file(subpathPrefix + new URL(req.url).pathname + "index.html"));
-    }
-    return new Response(Bun.file(subpathPrefix + new URL(req.url).pathname));
-  },
+import { createServer } from "node:http";
+
+const subpathPrefix = "main";
+const port = 3000;
+
+createServer(async (req, res) => {
+  console.log(req.method, req.url);
+
+  const pathname = decodeURIComponent(new URL(req.url!, `http://${req.headers.host}`).pathname);
+
+  if (pathname.endsWith(".well-known/appspecific/com.chrom.devtools.json")) {
+    res.writeHead(404).end("not found");
+    return;
+  }
+
+  const file = Bun.file(
+    subpathPrefix + (pathname.endsWith("/") ? pathname + "index.html" : pathname),
+  );
+  if (!(await file.exists())) {
+    res.writeHead(404).end("not found");
+    return;
+  }
+
+  res.writeHead(200, { "Content-Type": file.type });
+  res.end(Buffer.from(await file.arrayBuffer()));
+}).listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
-
-console.log("Server running at http://localhost:3000");

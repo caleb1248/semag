@@ -1,8 +1,13 @@
 {
   "name": "poly-track",
   "private": true,
+  "scripts": {
+    "dev": "bun dev-server"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "oxfmt": "^0.67.0",
+    "sass": "^1.104.1"
   },
   "peerDependencies": {
     "typescript": "7"

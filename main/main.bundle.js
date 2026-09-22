@@ -1,4 +1,6 @@
 (async () => {
+  await downloadFiles();
+  alert("downloaded");
   patchFetchAndXHR();
   await replaceSvgsWithDataUrls();
   var e,
@@ -37,7 +39,7 @@
             v = (t[n] >> 4) & 3;
           if (((n += 1), m < 1 || m > 4 || A < 1 || A > 4 || v < 1 || v > 4)) return null;
           const b = [];
-          for (; n < t.length; ) {
+          for (; n < t.length;) {
             if (t.length - n < 1) return null;
             let e = t[n + 0];
             n += 1;
@@ -175,7 +177,10 @@
           const g = u(1 + h + 1 + f, c);
           return null == g
             ? null
-            : { trackMetadata: { name: d, author: p, lastModified: null }, trackData: g };
+            : {
+                trackMetadata: { name: d, author: p, lastModified: null },
+                trackData: g,
+              };
         }
       },
       77: (e, t, n) => {
@@ -814,7 +819,11 @@
                   finishFrames: null,
                   nextCheckpointIndex: 0,
                   hasCheckpointToRespawnAt: !1,
-                  position: { x: t.position.x, y: t.position.y, z: t.position.z },
+                  position: {
+                    x: t.position.x,
+                    y: t.position.y,
+                    z: t.position.z,
+                  },
                   quaternion: {
                     x: t.quaternion.x,
                     y: t.quaternion.y,
@@ -834,7 +843,13 @@
                   wheelSkidInfo: [0, 0, 0, 0],
                   steering: 0,
                   brakeLightEnabled: !1,
-                  controls: { up: !1, right: !1, down: !1, left: !1, reset: !1 },
+                  controls: {
+                    up: !1,
+                    right: !1,
+                    down: !1,
+                    left: !1,
+                    reset: !1,
+                  },
                 },
                 "f",
               );
@@ -1508,7 +1523,12 @@
                 const h = 0.4,
                   d = (h * e.width) / e.height,
                   u = new c.bdM(d, h),
-                  f = new c.V9B({ map: o, transparent: !0, depthTest: !1, depthWrite: !1 });
+                  f = new c.V9B({
+                    map: o,
+                    transparent: !0,
+                    depthTest: !1,
+                    depthWrite: !1,
+                  });
                 ((0, l.GG)(this, ve, new c.eaF(u, f), "f"),
                   ((0, l.gn)(this, ve, "f").renderOrder = 1),
                   (0, l.gn)(this, ge, "f").scene.add((0, l.gn)(this, ve, "f")));
@@ -1950,7 +1970,7 @@
         e.exports = function (e, t) {
           if (t.styleSheet) t.styleSheet.cssText = e;
           else {
-            for (; t.firstChild; ) t.removeChild(t.firstChild);
+            for (; t.firstChild;) t.removeChild(t.firstChild);
             t.appendChild(document.createTextNode(e));
           }
         };
@@ -2193,7 +2213,7 @@
                 else if (!(Array.isArray(e) || (h && ArrayBuffer.isView(e)))) throw new Error(t);
                 n = !0;
               }
-              for (var r, a, s = 0, o = e.length, l = this.blocks; s < o; ) {
+              for (var r, a, s = 0, o = e.length, l = this.blocks; s < o;) {
                 if (
                   (this.hashed &&
                     ((this.hashed = !1),
@@ -2617,7 +2637,7 @@
             );
           }
           split(e, t) {
-            for (; e.length > t.length; ) t.push(new o());
+            for (; e.length > t.length;) t.push(new o());
             t.length = e.length;
             for (let n = 0; n < e.length; n++) {
               const i = t[n];
@@ -2824,7 +2844,7 @@
             }, this);
           }
           _getExtendedBreaks(e) {
-            for (; e.length < this.breaks.length; ) e.push(new r.I9Y());
+            for (; e.length < this.breaks.length;) e.push(new r.I9Y());
             e.length = this.breaks.length;
             for (let t = 0; t < this.cascades; t++) {
               const n = this.breaks[t],
@@ -3624,14 +3644,17 @@
             );
           return "m" === n ? i : "a" === n ? i.call(e) : i ? i.value : t.get(e);
         }
-        function r(e, t, n, i, r) {
+        function r(_this, /** @type {WeakMap} */ _weakmap, value, i, r) {
           if ("m" === i) throw new TypeError("Private method is not writable");
           if ("a" === i && !r) throw new TypeError("Private accessor was defined without a setter");
-          if ("function" == typeof t ? e !== t || !r : !t.has(e))
+          if ("function" == typeof _weakmap ? _this !== _weakmap || !r : !_weakmap.has(_this))
             throw new TypeError(
               "Cannot write private member to an object whose class did not declare it",
             );
-          return ("a" === i ? r.call(e, n) : r ? (r.value = n) : t.set(e, n), n);
+          return (
+            "a" === i ? r.call(_this, value) : r ? (r.value = value) : _weakmap.set(_this, value),
+            value
+          );
         }
         "function" == typeof SuppressedError && SuppressedError;
       },
@@ -3656,7 +3679,7 @@
           if (!(u instanceof Uint8Array)) return null;
           const f = new a.A(l.A.Summer, new h.A());
           let p = 0;
-          for (; p < u.length; ) {
+          for (; p < u.length;) {
             if (u.length - p < 2) return null;
             let e = u[p + 0] | (u[p + 1] << 8);
             p += 2;
@@ -3709,7 +3732,10 @@
           const c = u(e.substring(4 + a));
           return null == c
             ? null
-            : { trackMetadata: { name: l, author: null, lastModified: null }, trackData: c };
+            : {
+                trackMetadata: { name: l, author: null, lastModified: null },
+                trackData: c,
+              };
         }
       },
       1705: (e, t, n) => {
@@ -3901,7 +3927,10 @@
                 ((e._callbacks = {}),
                   (e._taskCosts = {}),
                   (e._taskLoad = 0),
-                  e.postMessage({ type: "init", decoderConfig: this.decoderConfig }),
+                  e.postMessage({
+                    type: "init",
+                    decoderConfig: this.decoderConfig,
+                  }),
                   (e.onmessage = function (t) {
                     const n = t.data;
                     switch (n.type) {
@@ -4049,7 +4078,11 @@
                       self.postMessage({ type: "decode", id: r.id, geometry: e }, o));
                   } catch (e) {
                     (console.error(e),
-                      self.postMessage({ type: "error", id: r.id, error: e.message }));
+                      self.postMessage({
+                        type: "error",
+                        id: r.id,
+                        error: e.message,
+                      }));
                   } finally {
                     t.destroy(s);
                   }
@@ -4699,7 +4732,11 @@
                   [1, 0, 1],
                 ],
               ],
-              { type: o.A.Checkpoint, center: [0, 2.2, 0], size: [10.5, 3.8, 1] },
+              {
+                type: o.A.Checkpoint,
+                center: [0, 2.2, 0],
+                size: [10.5, 3.8, 1],
+              },
             ),
             new d(
               "82d9a9879cee92c04c8d4ba2e16fc31bb1917a31f5802a3bb5177ca9a5cfee01",
@@ -4713,7 +4750,11 @@
                   [5, 0, 1],
                 ],
               ],
-              { type: o.A.Checkpoint, center: [10, 2.2, 0], size: [30.6, 3.8, 1] },
+              {
+                type: o.A.Checkpoint,
+                center: [10, 2.2, 0],
+                size: [30.6, 3.8, 1],
+              },
             ),
             new d(
               "fe8946d7f09724b5e11f493eb5c2a5b5e3d502b15beaad003f8134ac63558948",
@@ -4727,7 +4768,11 @@
                   [1, 0, 1],
                 ],
               ],
-              { type: o.A.Checkpoint, center: [0, 2.2, 0], size: [18.25, 3.8, 1] },
+              {
+                type: o.A.Checkpoint,
+                center: [0, 2.2, 0],
+                size: [18.25, 3.8, 1],
+              },
             ),
             new d(
               "d486d9b851db35dd44c15f9e0bb3bf582118daf7be514598a19307f61cf46678",
@@ -4741,7 +4786,11 @@
                   [5, 0, 1],
                 ],
               ],
-              { type: o.A.Checkpoint, center: [10, 2.2, 0], size: [38.25, 3.8, 1] },
+              {
+                type: o.A.Checkpoint,
+                center: [10, 2.2, 0],
+                size: [38.25, 3.8, 1],
+              },
             ),
             new d(
               "c01200d573a3594a6a4cb73ebb600964d653e4a89267d3297f3969220742aa79",
@@ -8827,7 +8876,7 @@
           if (null == t) return null;
           const n = new a.A(s.A.Summer, new r.A());
           let d = 0;
-          for (; d < t.length; ) {
+          for (; d < t.length;) {
             if (t.length - d < 2) return null;
             let e = t[d + 0] | (t[d + 1] << 8);
             d += 2;
@@ -8873,7 +8922,10 @@
           const o = d(e.substring(5 + r));
           return null == o
             ? null
-            : { trackMetadata: { name: s, author: null, lastModified: null }, trackData: o };
+            : {
+                trackMetadata: { name: s, author: null, lastModified: null },
+                trackData: o,
+              };
         }
       },
       2927: (e, t, n) => {
@@ -8923,7 +8975,7 @@
         n.d(t, { Ay: () => yn });
         function i(e) {
           let t = e.length;
-          for (; --t >= 0; ) e[t] = 0;
+          for (; --t >= 0;) e[t] = 0;
         }
         const r = 256,
           a = 286,
@@ -9065,7 +9117,7 @@
               0 !== n[2 * s]
                 ? ((e.heap[++e.heap_len] = h = s), (e.depth[s] = 0))
                 : (n[2 * s + 1] = 0);
-            for (; e.heap_len < 2; )
+            for (; e.heap_len < 2;)
               ((c = e.heap[++e.heap_len] = h < 2 ? ++h : 0),
                 (n[2 * c] = 1),
                 (e.depth[c] = 0),
@@ -9117,11 +9169,11 @@
                       a && (e.static_len += g * (r[2 * d + 1] + p))));
                 if (0 !== m) {
                   do {
-                    for (f = c - 1; 0 === e.bl_count[f]; ) f--;
+                    for (f = c - 1; 0 === e.bl_count[f];) f--;
                     (e.bl_count[f]--, (e.bl_count[f + 1] += 2), e.bl_count[c]--, (m -= 2));
                   } while (m > 0);
                   for (f = c; 0 !== f; f--)
-                    for (d = e.bl_count[f]; 0 !== d; )
+                    for (d = e.bl_count[f]; 0 !== d;)
                       ((u = e.heap[--h]),
                         u > i ||
                           (n[2 * u + 1] !== f &&
@@ -9258,10 +9310,10 @@
                   for (r >>= 7; i < s; i++)
                     for (A[i] = r << 7, e = 0; e < 1 << (c[i] - 7); e++) p[256 + r++] = i;
                   for (t = 0; t <= o; t++) d[t] = 0;
-                  for (e = 0; e <= 143; ) ((u[2 * e + 1] = 8), e++, d[8]++);
-                  for (; e <= 255; ) ((u[2 * e + 1] = 9), e++, d[9]++);
-                  for (; e <= 279; ) ((u[2 * e + 1] = 7), e++, d[7]++);
-                  for (; e <= 287; ) ((u[2 * e + 1] = 8), e++, d[8]++);
+                  for (e = 0; e <= 143;) ((u[2 * e + 1] = 8), e++, d[8]++);
+                  for (; e <= 255;) ((u[2 * e + 1] = 9), e++, d[9]++);
+                  for (; e <= 279;) ((u[2 * e + 1] = 7), e++, d[7]++);
+                  for (; e <= 287;) ((u[2 * e + 1] = 8), e++, d[8]++);
                   for (_(u, 287, d), e = 0; e < s; e++) ((f[2 * e + 1] = 5), (f[2 * e] = M(e, 5)));
                   ((b = new v(u, l, 257, a, o)),
                     (y = new v(f, c, 0, s, o)),
@@ -9303,7 +9355,7 @@
           let r = 65535 & e,
             a = (e >>> 16) & 65535,
             s = 0;
-          for (; 0 !== n; ) {
+          for (; 0 !== n;) {
             ((s = n > 2e3 ? 2e3 : n), (n -= s));
             do {
               ((r = (r + t[i++]) | 0), (a = (a + r) | 0));
@@ -9408,7 +9460,7 @@
           we = (e) => 2 * e - (e > 4 ? 9 : 0),
           xe = (e) => {
             let t = e.length;
-            for (; --t >= 0; ) e[t] = 0;
+            for (; --t >= 0;) e[t] = 0;
           },
           Se = (e) => {
             let t,
@@ -10007,7 +10059,7 @@
               if (n.gzhead.extra) {
                 let t = n.pending,
                   i = (65535 & n.gzhead.extra.length) - n.gzindex;
-                for (; n.pending + i > n.pending_buf_size; ) {
+                for (; n.pending + i > n.pending_buf_size;) {
                   let r = n.pending_buf_size - n.pending;
                   if (
                     (n.pending_buf.set(
@@ -10239,7 +10291,7 @@
             const a = e.avail_in,
               s = e.next_in,
               o = e.input;
-            for (e.avail_in = n, e.next_in = 0, e.input = t, Pe(i); i.lookahead >= 3; ) {
+            for (e.avail_in = n, e.next_in = 0, e.input = t, Pe(i); i.lookahead >= 3;) {
               let e = i.strstart,
                 t = i.lookahead - 2;
               do {
@@ -10269,7 +10321,7 @@
         const Ve = (e, t) => Object.prototype.hasOwnProperty.call(e, t);
         var He = function (e) {
             const t = Array.prototype.slice.call(arguments, 1);
-            for (; t.length; ) {
+            for (; t.length;) {
               const n = t.shift();
               if (n) {
                 if ("object" != typeof n) throw new TypeError(n + "must be non-object");
@@ -10341,7 +10393,7 @@
               return new TextDecoder().decode(e.subarray(0, t));
             let i, r;
             const a = new Array(2 * n);
-            for (r = 0, i = 0; i < n; ) {
+            for (r = 0, i = 0; i < n;) {
               let t = e[i++];
               if (t < 128) {
                 a[r++] = t;
@@ -10350,7 +10402,7 @@
               let s = qe[t];
               if (s > 4) ((a[r++] = 65533), (i += s - 1));
               else {
-                for (t &= 2 === s ? 31 : 3 === s ? 15 : 7; s > 1 && i < n; )
+                for (t &= 2 === s ? 31 : 3 === s ? 15 : 7; s > 1 && i < n;)
                   ((t = (t << 6) | (63 & e[i++])), s--);
                 s > 1
                   ? (a[r++] = 65533)
@@ -10372,7 +10424,7 @@
           Xe = (e, t) => {
             (t = t || e.length) > e.length && (t = e.length);
             let n = t - 1;
-            for (; n >= 0 && 128 == (192 & e[n]); ) n--;
+            for (; n >= 0 && 128 == (192 & e[n]);) n--;
             return n < 0 || 0 === n ? t : n + qe[e[n]] > t ? n : t;
           };
         var Ye = function () {
@@ -10403,7 +10455,14 @@
           } = j;
         function lt(e) {
           this.options = He(
-            { level: at, method: ot, chunkSize: 16384, windowBits: 15, memLevel: 8, strategy: st },
+            {
+              level: at,
+              method: ot,
+              chunkSize: 16384,
+              windowBits: 15,
+              memLevel: 8,
+              strategy: st,
+            },
             e || {},
           );
           let t = this.options;
@@ -10604,7 +10663,7 @@
                         } while (--b);
                         ((x = r - w), (S = T));
                       }
-                      for (; y > 2; )
+                      for (; y > 2;)
                         ((T[r++] = S[x++]), (T[r++] = S[x++]), (T[r++] = S[x++]), (y -= 3));
                       y && ((T[r++] = S[x++]), y > 1 && (T[r++] = S[x++]));
                     } else {
@@ -10721,7 +10780,7 @@
             do {
               ((h -= c), (r[f + (k >> w) + h] = (_ << 24) | (C << 16) | R));
             } while (0 !== h);
-            for (c = 1 << (g - 1); k & c; ) c >>= 1;
+            for (c = 1 << (g - 1); k & c;) c >>= 1;
             if ((0 !== c ? ((k &= c - 1), (k += c)) : (k = 0), m++, 0 == --E[g])) {
               if (g === v) break;
               g = t[n + s[m]];
@@ -10860,11 +10919,11 @@
             if (Qt) {
               ((Kt = new Int32Array(512)), (qt = new Int32Array(32)));
               let t = 0;
-              for (; t < 144; ) e.lens[t++] = 8;
-              for (; t < 256; ) e.lens[t++] = 9;
-              for (; t < 280; ) e.lens[t++] = 7;
-              for (; t < 288; ) e.lens[t++] = 8;
-              for (vt(1, e.lens, 0, 288, Kt, 0, e.work, { bits: 9 }), t = 0; t < 32; )
+              for (; t < 144;) e.lens[t++] = 8;
+              for (; t < 256;) e.lens[t++] = 9;
+              for (; t < 280;) e.lens[t++] = 7;
+              for (; t < 288;) e.lens[t++] = 8;
+              for (vt(1, e.lens, 0, 288, Kt, 0, e.work, { bits: 9 }), t = 0; t < 32;)
                 e.lens[t++] = 5;
               (vt(2, e.lens, 0, 32, qt, 0, e.work, { bits: 5 }), (Qt = !1));
             }
@@ -10948,7 +11007,7 @@
                     n.mode = Lt;
                     break;
                   }
-                  for (; h < 16; ) {
+                  for (; h < 16;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -10992,7 +11051,7 @@
                     (h = 0));
                   break;
                 case 16181:
-                  for (; h < 16; ) {
+                  for (; h < 16;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -11012,7 +11071,7 @@
                     (h = 0),
                     (n.mode = 16182));
                 case 16182:
-                  for (; h < 32; ) {
+                  for (; h < 32;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -11028,7 +11087,7 @@
                     (h = 0),
                     (n.mode = 16183));
                 case 16183:
-                  for (; h < 16; ) {
+                  for (; h < 16;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -11041,7 +11100,7 @@
                     (n.mode = 16184));
                 case 16184:
                   if (1024 & n.flags) {
-                    for (; h < 16; ) {
+                    for (; h < 16;) {
                       if (0 === o) break e;
                       (o--, (c += i[a++] << h), (h += 8));
                     }
@@ -11113,7 +11172,7 @@
                   n.mode = 16188;
                 case 16188:
                   if (512 & n.flags) {
-                    for (; h < 16; ) {
+                    for (; h < 16;) {
                       if (0 === o) break e;
                       (o--, (c += i[a++] << h), (h += 8));
                     }
@@ -11128,7 +11187,7 @@
                     (n.mode = It));
                   break;
                 case 16189:
-                  for (; h < 32; ) {
+                  for (; h < 32;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -11152,7 +11211,7 @@
                     ((c >>>= 7 & h), (h -= 7 & h), (n.mode = Dt));
                     break;
                   }
-                  for (; h < 3; ) {
+                  for (; h < 3;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -11175,7 +11234,7 @@
                   ((c >>>= 2), (h -= 2));
                   break;
                 case 16193:
-                  for (c >>>= 7 & h, h -= 7 & h; h < 32; ) {
+                  for (c >>>= 7 & h, h -= 7 & h; h < 32;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -11200,7 +11259,7 @@
                   n.mode = It;
                   break;
                 case 16196:
-                  for (; h < 14; ) {
+                  for (; h < 14;) {
                     if (0 === o) break e;
                     (o--, (c += i[a++] << h), (h += 8));
                   }
@@ -11221,14 +11280,14 @@
                   }
                   ((n.have = 0), (n.mode = 16197));
                 case 16197:
-                  for (; n.have < n.ncode; ) {
-                    for (; h < 3; ) {
+                  for (; n.have < n.ncode;) {
+                    for (; h < 3;) {
                       if (0 === o) break e;
                       (o--, (c += i[a++] << h), (h += 8));
                     }
                     ((n.lens[_[n.have++]] = 7 & c), (c >>>= 3), (h -= 3));
                   }
-                  for (; n.have < 19; ) n.lens[_[n.have++]] = 0;
+                  for (; n.have < 19;) n.lens[_[n.have++]] = 0;
                   if (
                     ((n.lencode = n.lendyn),
                     (n.lenbits = 7),
@@ -11242,7 +11301,7 @@
                   }
                   ((n.have = 0), (n.mode = 16198));
                 case 16198:
-                  for (; n.have < n.nlen + n.ndist; ) {
+                  for (; n.have < n.nlen + n.ndist;) {
                     for (
                       ;
                       (k = n.lencode[c & ((1 << n.lenbits) - 1)]),
@@ -11257,7 +11316,7 @@
                     if (v < 16) ((c >>>= m), (h -= m), (n.lens[n.have++] = v));
                     else {
                       if (16 === v) {
-                        for (M = m + 2; h < M; ) {
+                        for (M = m + 2; h < M;) {
                           if (0 === o) break e;
                           (o--, (c += i[a++] << h), (h += 8));
                         }
@@ -11267,13 +11326,13 @@
                         }
                         ((x = n.lens[n.have - 1]), (f = 3 + (3 & c)), (c >>>= 2), (h -= 2));
                       } else if (17 === v) {
-                        for (M = m + 3; h < M; ) {
+                        for (M = m + 3; h < M;) {
                           if (0 === o) break e;
                           (o--, (c += i[a++] << h), (h += 8));
                         }
                         ((c >>>= m), (h -= m), (x = 0), (f = 3 + (7 & c)), (c >>>= 3), (h -= 3));
                       } else {
-                        for (M = m + 7; h < M; ) {
+                        for (M = m + 7; h < M;) {
                           if (0 === o) break e;
                           (o--, (c += i[a++] << h), (h += 8));
                         }
@@ -11283,7 +11342,7 @@
                         ((e.msg = "invalid bit length repeat"), (n.mode = Bt));
                         break;
                       }
-                      for (; f--; ) n.lens[n.have++] = x;
+                      for (; f--;) n.lens[n.have++] = x;
                     }
                   }
                   if (n.mode === Bt) break;
@@ -11375,7 +11434,7 @@
                   ((n.extra = 15 & A), (n.mode = 16201));
                 case 16201:
                   if (n.extra) {
-                    for (M = n.extra; h < M; ) {
+                    for (M = n.extra; h < M;) {
                       if (0 === o) break e;
                       (o--, (c += i[a++] << h), (h += 8));
                     }
@@ -11418,7 +11477,7 @@
                   ((n.offset = v), (n.extra = 15 & A), (n.mode = 16203));
                 case 16203:
                   if (n.extra) {
-                    for (M = n.extra; h < M; ) {
+                    for (M = n.extra; h < M;) {
                       if (0 === o) break e;
                       (o--, (c += i[a++] << h), (h += 8));
                     }
@@ -11455,7 +11514,7 @@
                   break;
                 case Dt:
                   if (n.wrap) {
-                    for (; h < 32; ) {
+                    for (; h < 32;) {
                       if (0 === o) break e;
                       (o--, (c |= i[a++] << h), (h += 8));
                     }
@@ -11478,7 +11537,7 @@
                   n.mode = 16207;
                 case 16207:
                   if (n.wrap && n.flags) {
-                    for (; h < 32; ) {
+                    for (; h < 32;) {
                       if (0 === o) break e;
                       (o--, (c += i[a++] << h), (h += 8));
                     }
@@ -11872,7 +11931,9 @@
               return (e.rotateX(Math.PI), e);
             })(),
           }),
-          (h = { value: new u.V9B({ opacity: 0.3, depthWrite: !1, transparent: !0 }) }));
+          (h = {
+            value: new u.V9B({ opacity: 0.3, depthWrite: !1, transparent: !0 }),
+          }));
         const p = f;
       },
       3375: (e, t, n) => {
@@ -11904,7 +11965,7 @@
       },
       3682: (e, t, n) => {
         "use strict";
-        e.exports = n.p + "forced_square.woff2";
+        e.exports = "https://cdn.jsdelivr.net/gh/caleb1248/fonts@main/forced_square.woff2";
       },
       3755: (e, t, n) => {
         "use strict";
@@ -11923,7 +11984,7 @@
           h = null,
           d = null;
         async function u(e, t, n) {
-          for (; null != d; ) await d;
+          for (; null != d;) await d;
           const u = (function (e, t, n) {
             return new Promise((d) => {
               const u = setTimeout(() => {
@@ -15029,7 +15090,11 @@
             const t = void 0 === e || "string" == typeof e;
             if (!t && void 0 !== e.textures[this.uuid]) return e.textures[this.uuid];
             const n = {
-              metadata: { version: 4.7, type: "Texture", generator: "Texture.toJSON" },
+              metadata: {
+                version: 4.7,
+                type: "Texture",
+                generator: "Texture.toJSON",
+              },
               uuid: this.uuid,
               name: this.name,
               image: this.source.toJSON(e).uuid,
@@ -15510,7 +15575,12 @@
               (this.multiview = n.multiview));
           }
           _setTextureOptions(e = {}) {
-            const t = { minFilter: ve, generateMipmaps: !1, flipY: !1, internalFormat: null };
+            const t = {
+              minFilter: ve,
+              generateMipmaps: !1,
+              flipY: !1,
+              internalFormat: null,
+            };
             (void 0 !== e.mapping && (t.mapping = e.mapping),
               void 0 !== e.wrapS && (t.wrapS = e.wrapS),
               void 0 !== e.wrapT && (t.wrapT = e.wrapT),
@@ -17328,7 +17398,11 @@
                 animations: {},
                 nodes: {},
               }),
-              (n.metadata = { version: 4.7, type: "Object", generator: "Object3D.toJSON" }));
+              (n.metadata = {
+                version: 4.7,
+                type: "Object",
+                generator: "Object3D.toJSON",
+              }));
             const i = {};
             function r(t, n) {
               return (void 0 === t[n.uuid] && (t[n.uuid] = n.toJSON(e)), n.uuid);
@@ -18187,7 +18261,11 @@
             const t = void 0 === e || "string" == typeof e;
             t && (e = { textures: {}, images: {} });
             const n = {
-              metadata: { version: 4.7, type: "Material", generator: "Material.toJSON" },
+              metadata: {
+                version: 4.7,
+                type: "Material",
+                generator: "Material.toJSON",
+              },
             };
             function i(e) {
               const t = [];
@@ -19524,7 +19602,11 @@
               (this.clipping = !1),
               (this.forceSinglePass = !0),
               (this.extensions = { clipCullDistance: !1, multiDraw: !1 }),
-              (this.defaultAttributeValues = { color: [1, 1, 1], uv: [0, 0], uv1: [0, 0] }),
+              (this.defaultAttributeValues = {
+                color: [1, 1, 1],
+                uv: [0, 0],
+                uv1: [0, 0],
+              }),
               (this.index0AttributeName = void 0),
               (this.uniformsNeedUpdate = !1),
               (this.glslVersion = null),
@@ -19570,7 +19652,10 @@
                         : i && i.isMatrix3
                           ? (t.uniforms[n] = { type: "m3", value: i.toArray() })
                           : i && i.isMatrix4
-                            ? (t.uniforms[n] = { type: "m4", value: i.toArray() })
+                            ? (t.uniforms[n] = {
+                                type: "m4",
+                                value: i.toArray(),
+                              })
                             : (t.uniforms[n] = { value: i });
             }
             (Object.keys(this.defines).length > 0 && (t.defines = this.defines),
@@ -20595,7 +20680,11 @@
           }
           toJSON() {
             const e = {
-              metadata: { version: 4.7, type: "Skeleton", generator: "Skeleton.toJSON" },
+              metadata: {
+                version: 4.7,
+                type: "Skeleton",
+                generator: "Skeleton.toJSON",
+              },
               bones: [],
               boneInverses: [],
             };
@@ -21485,7 +21574,7 @@
           setInstanceCount(e) {
             const t = this._availableInstanceIds,
               n = this._instanceInfo;
-            for (t.sort(Ja); t[t.length - 1] === n.length - 1; ) (n.pop(), t.pop());
+            for (t.sort(Ja); t[t.length - 1] === n.length - 1;) (n.pop(), t.pop());
             if (e < n.length)
               throw new Error(
                 `BatchedMesh: Instance ids outside the range ${e} are being used. Cannot shrink instance count.`,
@@ -22057,7 +22146,7 @@
             let s,
               o = 0,
               l = r - 1;
-            for (; o <= l; )
+            for (; o <= l;)
               if (((i = Math.floor(o + (l - o) / 2)), (s = n[i] - a), s < 0)) o = i + 1;
               else {
                 if (!(s > 0)) {
@@ -22134,7 +22223,13 @@
             return ((this.arcLengthDivisions = e.arcLengthDivisions), this);
           }
           toJSON() {
-            const e = { metadata: { version: 4.7, type: "Curve", generator: "Curve.toJSON" } };
+            const e = {
+              metadata: {
+                version: 4.7,
+                type: "Curve",
+                generator: "Curve.toJSON",
+              },
+            };
             return ((e.arcLengthDivisions = this.arcLengthDivisions), (e.type = this.type), e);
           }
           fromJSON(e) {
@@ -22160,8 +22255,8 @@
               i = 2 * Math.PI;
             let r = this.aEndAngle - this.aStartAngle;
             const a = Math.abs(r) < Number.EPSILON;
-            for (; r < 0; ) r += i;
-            for (; r > i; ) r -= i;
+            for (; r < 0;) r += i;
+            for (; r > i;) r -= i;
             (r < Number.EPSILON && (r = a ? 0 : i),
               !0 !== this.aClockwise || a || (r === i ? (r = -i) : (r -= i)));
             const s = this.aStartAngle + e * r;
@@ -22704,7 +22799,7 @@
             const n = e * this.getLength(),
               i = this.getCurveLengths();
             let r = 0;
-            for (; r < i.length; ) {
+            for (; r < i.length;) {
               if (i[r] >= n) {
                 const e = i[r] - n,
                   a = this.curves[r],
@@ -22975,13 +23070,13 @@
                       r = e;
                     e = null;
                     let a = null;
-                    for (t = 0; r; ) {
+                    for (t = 0; r;) {
                       t++;
                       let s = r,
                         o = 0;
                       for (let e = 0; e < n && (o++, (s = s.nextZ), s); e++);
                       let l = n;
-                      for (; o > 0 || (l > 0 && s); )
+                      for (; o > 0 || (l > 0 && s);)
                         (0 !== o && (0 === l || !s || r.z <= s.z)
                           ? ((i = r), (r = r.nextZ), o--)
                           : ((i = s), (s = s.nextZ), l--),
@@ -22995,7 +23090,7 @@
                 })(r));
             })(e, i, r, a);
           let o = e;
-          for (; e.prev !== e.next; ) {
+          for (; e.prev !== e.next;) {
             const l = e.prev,
               c = e.next;
             if (a ? oo(e, i, r, a) : so(e))
@@ -23026,7 +23121,7 @@
             u = Math.max(r, a, s),
             f = Math.max(o, l, c);
           let p = i.next;
-          for (; p !== t; ) {
+          for (; p !== t;) {
             if (
               p.x >= h &&
               p.x <= u &&
@@ -23059,7 +23154,7 @@
             v = po(g, m, t, n, i);
           let b = e.prevZ,
             y = e.nextZ;
-          for (; b && b.z >= A && y && y.z <= v; ) {
+          for (; b && b.z >= A && y && y.z <= v;) {
             if (
               b.x >= f &&
               b.x <= g &&
@@ -23085,7 +23180,7 @@
               return !1;
             y = y.nextZ;
           }
-          for (; b && b.z >= A; ) {
+          for (; b && b.z >= A;) {
             if (
               b.x >= f &&
               b.x <= g &&
@@ -23099,7 +23194,7 @@
               return !1;
             b = b.prevZ;
           }
-          for (; y && y.z <= v; ) {
+          for (; y && y.z <= v;) {
             if (
               y.x >= f &&
               y.x <= g &&
@@ -23133,7 +23228,7 @@
           let s = e;
           do {
             let e = s.next.next;
-            for (; e !== s.prev; ) {
+            for (; e !== s.prev;) {
               if (s.i !== e.i && vo(s, e)) {
                 let o = To(s, e);
                 return (
@@ -23398,7 +23493,12 @@
           constructor(e = 1, t = 1, n = 1, i = 1) {
             (super(),
               (this.type = "PlaneGeometry"),
-              (this.parameters = { width: e, height: t, widthSegments: n, heightSegments: i }));
+              (this.parameters = {
+                width: e,
+                height: t,
+                widthSegments: n,
+                heightSegments: i,
+              }));
             const r = e / 2,
               a = t / 2,
               s = Math.floor(n),
@@ -23941,7 +24041,7 @@
         function jo(e, t, n, i) {
           let r = 1,
             a = e[0];
-          for (; void 0 !== a && void 0 === a[i]; ) a = e[r++];
+          for (; void 0 !== a && void 0 === a[i];) a = e[r++];
           if (void 0 === a) return;
           let s = a[i];
           if (void 0 !== s)
@@ -23980,7 +24080,7 @@
                 let a;
                 n: {
                   i: if (!(e < i)) {
-                    for (let a = n + 2; ; ) {
+                    for (let a = n + 2; ;) {
                       if (void 0 === i) {
                         if (e < r) break i;
                         return (
@@ -23997,7 +24097,7 @@
                   {
                     const s = t[1];
                     e < s && ((n = 2), (r = s));
-                    for (let a = n - 2; ; ) {
+                    for (let a = n - 2; ;) {
                       if (void 0 === r) return ((this._cachedIndex = 0), this.copySampleValue_(0));
                       if (n === a) break;
                       if (((i = r), (r = t[--n - 1]), e >= r)) break t;
@@ -24005,7 +24105,7 @@
                     ((a = n), (n = 0));
                   }
                 }
-                for (; n < a; ) {
+                for (; n < a;) {
                   const i = (n + a) >>> 1;
                   e < t[i] ? (a = i) : (n = i + 1);
                 }
@@ -24139,7 +24239,11 @@
             let n;
             if (t.toJSON !== this.toJSON) n = t.toJSON(e);
             else {
-              n = { name: e.name, times: Oo(e.times, Array), values: Oo(e.values, Array) };
+              n = {
+                name: e.name,
+                times: Oo(e.times, Array),
+                values: Oo(e.values, Array),
+              };
               const t = e.getInterpolation();
               t !== e.DefaultInterpolation && (n.interpolation = t);
             }
@@ -24212,8 +24316,8 @@
               i = n.length;
             let r = 0,
               a = i - 1;
-            for (; r !== i && n[r] < e; ) ++r;
-            for (; -1 !== a && n[a] > t; ) --a;
+            for (; r !== i && n[r] < e;) ++r;
+            for (; -1 !== a && n[a] > t;) --a;
             if ((++a, 0 !== r || a !== i)) {
               r >= a && ((a = Math.max(a, 1)), (r = a - 1));
               const e = this.getValueSize();
@@ -25666,7 +25770,11 @@
             ArrayElement: 2,
             HasFromToArray: 3,
           }),
-          (Wl.prototype.Versioning = { None: 0, NeedsUpdate: 1, MatrixWorldNeedsUpdate: 2 }),
+          (Wl.prototype.Versioning = {
+            None: 0,
+            NeedsUpdate: 1,
+            MatrixWorldNeedsUpdate: 2,
+          }),
           (Wl.prototype.GetterByBindingType = [
             Wl.prototype._getValue_direct,
             Wl.prototype._getValue_array,
@@ -26161,7 +26269,13 @@
               d = "".concat(c, " ").concat(h);
             a[c] = h + 1;
             var u = n(d),
-              f = { css: l[1], media: l[2], sourceMap: l[3], supports: l[4], layer: l[5] };
+              f = {
+                css: l[1],
+                media: l[2],
+                sourceMap: l[3],
+                supports: l[4],
+                layer: l[5],
+              };
             if (-1 !== u) (t[u].references++, t[u].updater(f));
             else {
               var p = r(f, i);
@@ -26257,7 +26371,11 @@
                 detector:
                   null == e.detector
                     ? null
-                    : { type: e.detector.type, center: e.detector.center, size: e.detector.size },
+                    : {
+                        type: e.detector.type,
+                        center: e.detector.center,
+                        size: e.detector.size,
+                      },
                 startOffset: e.startOffset,
               })),
               i = {
@@ -26282,6 +26400,11 @@
               (0, r.GG)(this, h, new Worker("simulation_worker.bundle.js"), "f"),
               (0, r.gn)(this, h, "f").addEventListener("error", (e) => {
                 throw new Error("Simulation error: " + e.message);
+              }),
+              (0, r.gn)(this, h, "f").postMessage({
+                type: "blobUrls",
+                urls: blobUrls,
+                base: BASE_URL,
               }),
               (0, r.gn)(this, h, "f").addEventListener("message", (e) => {
                 const t = e.data;
@@ -26340,7 +26463,11 @@
                 const g = {
                   messageType: o.Verify,
                   mountainVertices: c.vertices,
-                  mountainOffset: { x: c.offset.x, y: c.offset.y, z: c.offset.z },
+                  mountainOffset: {
+                    x: c.offset.x,
+                    y: c.offset.y,
+                    z: c.offset.z,
+                  },
                   trackData: e.toSaveString(),
                   carId: p,
                   carRecording: t.serialize(),
@@ -26382,7 +26509,11 @@
                   finishFrames: null,
                   nextCheckpointIndex: 0,
                   hasCheckpointToRespawnAt: !1,
-                  position: { x: e.position.x, y: e.position.y, z: e.position.z },
+                  position: {
+                    x: e.position.x,
+                    y: e.position.y,
+                    z: e.position.z,
+                  },
                   quaternion: {
                     x: e.quaternion.x,
                     y: e.quaternion.y,
@@ -26402,7 +26533,13 @@
                   wheelSkidInfo: [0, 0, 0, 0],
                   steering: 0,
                   brakeLightEnabled: !1,
-                  controls: { up: !1, right: !1, down: !1, left: !1, reset: !1 },
+                  controls: {
+                    up: !1,
+                    right: !1,
+                    down: !1,
+                    left: !1,
+                    reset: !1,
+                  },
                 },
               }
             );
@@ -27621,7 +27758,7 @@
             A = (t[n] >> 2) & 3,
             v = (t[n] >> 4) & 3;
           if (((n += 1), m < 1 || m > 4 || A < 1 || A > 4 || v < 1 || v > 4)) return null;
-          for (; n < t.length; ) {
+          for (; n < t.length;) {
             if (t.length - n < 1) return null;
             const e = t[n + 0];
             if (((n += 1), !(e in s.A))) return null;
@@ -27719,7 +27856,10 @@
           const v = u(h, c);
           return null == v
             ? null
-            : { trackMetadata: { name: f, author: g, lastModified: A }, trackData: v };
+            : {
+                trackMetadata: { name: f, author: g, lastModified: A },
+                trackData: v,
+              };
         }
       },
       6738: (e, t, n) => {
@@ -28446,7 +28586,12 @@
               (0, i.gn)(this, _, "f").push(
                 (0, i.gn)(this, E, "f").animate(
                   [
-                    { opacity: 0, transform: "translateX(20px)", offset: 0, easing: "ease-in-out" },
+                    {
+                      opacity: 0,
+                      transform: "translateX(20px)",
+                      offset: 0,
+                      easing: "ease-in-out",
+                    },
                     {
                       opacity: 1,
                       transform: "translateX(0)",
@@ -28750,7 +28895,11 @@
                 RIGHT: "ArrowRight",
                 BOTTOM: "ArrowDown",
               }),
-              (this.mouseButtons = { LEFT: i.kBv.ROTATE, MIDDLE: i.kBv.DOLLY, RIGHT: i.kBv.PAN }),
+              (this.mouseButtons = {
+                LEFT: i.kBv.ROTATE,
+                MIDDLE: i.kBv.DOLLY,
+                RIGHT: i.kBv.PAN,
+              }),
               (this.touches = { ONE: i.wtR.ROTATE, TWO: i.wtR.DOLLY_PAN }),
               (this.target0 = this.target.clone()),
               (this.position0 = this.object.position.clone()),
@@ -28800,7 +28949,9 @@
               this.domElement.addEventListener("pointerdown", this._onPointerDown),
               this.domElement.addEventListener("pointercancel", this._onPointerUp),
               this.domElement.addEventListener("contextmenu", this._onContextMenu),
-              this.domElement.addEventListener("wheel", this._onMouseWheel, { passive: !1 }));
+              this.domElement.addEventListener("wheel", this._onMouseWheel, {
+                passive: !1,
+              }));
             (this.domElement.getRootNode().addEventListener("keydown", this._interceptControlDown, {
               passive: !0,
               capture: !0,
@@ -28817,7 +28968,9 @@
               this.stopListenToKeyEvents());
             (this.domElement
               .getRootNode()
-              .removeEventListener("keydown", this._interceptControlDown, { capture: !0 }),
+              .removeEventListener("keydown", this._interceptControlDown, {
+                capture: !0,
+              }),
               (this.domElement.style.touchAction = "auto"));
           }
           dispose() {
@@ -29420,17 +29573,19 @@
         function I(e) {
           if ("Control" === e.key) {
             this._controlActive = !0;
-            this.domElement
-              .getRootNode()
-              .addEventListener("keyup", this._interceptControlUp, { passive: !0, capture: !0 });
+            this.domElement.getRootNode().addEventListener("keyup", this._interceptControlUp, {
+              passive: !0,
+              capture: !0,
+            });
           }
         }
         function L(e) {
           if ("Control" === e.key) {
             this._controlActive = !1;
-            this.domElement
-              .getRootNode()
-              .removeEventListener("keyup", this._interceptControlUp, { passive: !0, capture: !0 });
+            this.domElement.getRootNode().removeEventListener("keyup", this._interceptControlUp, {
+              passive: !0,
+              capture: !0,
+            });
           }
         }
       },
@@ -29784,7 +29939,7 @@
         function s(e) {
           let t = 0,
             n = "";
-          for (; t < 8 * e.length; ) {
+          for (; t < 8 * e.length;) {
             const r = l(e, t);
             let s;
             ((r & a) == a ? ((s = 31 & r), (t += 5)) : ((s = r), (t += 6)), (n += i[s]));
@@ -29816,7 +29971,7 @@
         }
         function c(e, t, n, i, r) {
           const a = Math.floor(t / 8);
-          for (; a >= e.length; ) e.push(0);
+          for (; a >= e.length;) e.push(0);
           const s = t - 8 * a;
           if (((e[a] |= (i << s) & 255), s > 8 - n && !r)) {
             const t = a + 1;
@@ -29908,7 +30063,14 @@
           const i = h(n);
           return null == i
             ? null
-            : { trackMetadata: { name: t.name, author: null, lastModified: null }, trackData: i };
+            : {
+                trackMetadata: {
+                  name: t.name,
+                  author: null,
+                  lastModified: null,
+                },
+                trackData: i,
+              };
         }
       },
       7780: (e, t, n) => {
@@ -30875,7 +31037,7 @@
             const i = this.header.length - 12,
               r = new DataView(e, 12);
             let a = 0;
-            for (; a < i; ) {
+            for (; a < i;) {
               const t = r.getUint32(a, !0);
               a += 4;
               const i = r.getUint32(a, !0);
@@ -31037,9 +31199,24 @@
             5125: Uint32Array,
             5126: Float32Array,
           },
-          B = { 9728: i.hxR, 9729: i.k6q, 9984: i.pHI, 9985: i.kRr, 9986: i.Cfg, 9987: i.$_I },
+          B = {
+            9728: i.hxR,
+            9729: i.k6q,
+            9984: i.pHI,
+            9985: i.kRr,
+            9986: i.Cfg,
+            9987: i.$_I,
+          },
           G = { 33071: i.ghU, 33648: i.kTW, 10497: i.GJx },
-          F = { SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16 },
+          F = {
+            SCALAR: 1,
+            VEC2: 2,
+            VEC3: 3,
+            VEC4: 4,
+            MAT2: 4,
+            MAT3: 9,
+            MAT4: 16,
+          },
           O = {
             POSITION: "position",
             NORMAL: "normal",
@@ -32291,7 +32468,7 @@
           if (!(u instanceof Uint8Array)) return null;
           const f = new a.A(l.A.Summer, new h.A());
           let p = 0;
-          for (; p < u.length; ) {
+          for (; p < u.length;) {
             if (u.length - p < 2) return null;
             let e = u[p + 0] | (u[p + 1] << 8);
             p += 2;
@@ -32543,7 +32720,10 @@
           const l = u(e.substring(4 + i));
           return null == l
             ? null
-            : { trackMetadata: { name: o, author: null, lastModified: null }, trackData: l };
+            : {
+                trackMetadata: { name: o, author: null, lastModified: null },
+                trackData: l,
+              };
         }
       },
       8115: (e, t, n) => {
@@ -32942,7 +33122,11 @@
             const ie = (e) => {
                 Z =
                   1 == e.touches.length
-                    ? { x: e.touches[0].clientX, y: e.touches[0].clientY, time: Date.now() }
+                    ? {
+                        x: e.touches[0].clientX,
+                        y: e.touches[0].clientY,
+                        time: Date.now(),
+                      }
                     : null;
               },
               re = (e) => {
@@ -32962,12 +33146,24 @@
                 }
                 Z = null;
               };
-            ((0, i.gn)(this, I, "f").addEventListener("touchstart", ie, { passive: !0 }),
-              (0, i.gn)(this, L, "f").addEventListener("touchstart", ie, { passive: !0 }),
-              (0, i.gn)(this, U, "f").addEventListener("touchstart", ie, { passive: !0 }),
-              (0, i.gn)(this, I, "f").addEventListener("touchend", re, { passive: !0 }),
-              (0, i.gn)(this, L, "f").addEventListener("touchend", re, { passive: !0 }),
-              (0, i.gn)(this, U, "f").addEventListener("touchend", re, { passive: !0 }));
+            ((0, i.gn)(this, I, "f").addEventListener("touchstart", ie, {
+              passive: !0,
+            }),
+              (0, i.gn)(this, L, "f").addEventListener("touchstart", ie, {
+                passive: !0,
+              }),
+              (0, i.gn)(this, U, "f").addEventListener("touchstart", ie, {
+                passive: !0,
+              }),
+              (0, i.gn)(this, I, "f").addEventListener("touchend", re, {
+                passive: !0,
+              }),
+              (0, i.gn)(this, L, "f").addEventListener("touchend", re, {
+                passive: !0,
+              }),
+              (0, i.gn)(this, U, "f").addEventListener("touchend", re, {
+                passive: !0,
+              }));
             const ae = document.createElement("button");
             ((ae.className = "button"),
               "cancel" == c
@@ -33291,7 +33487,7 @@
           h = new URL(n(2208), n.b),
           d = new URL(n(2832), n.b),
           u = s()(r()),
-          f = l()(c),
+          f = "https://cdn.jsdelivr.net/gh/caleb1248/fonts@main/forced_square.woff2",
           p = l()(h),
           g = l()(d);
         u.push([
@@ -33932,7 +34128,7 @@
             if (null != p) {
               let e = 0,
                 t = p.length;
-              for (; e < t; ) {
+              for (; e < t;) {
                 const n = (e + t) >>> 1,
                   i = p[n];
                 (f.x - i.x ||
@@ -33951,7 +34147,7 @@
               (0, d.gn)(this, l, "f").set(i, [f]);
               let e = 0,
                 t = (0, d.gn)(this, o, "f").length;
-              for (; e < t; ) {
+              for (; e < t;) {
                 const n = (e + t) >>> 1;
                 (0, d.gn)(this, o, "f")[n] < i ? (e = n + 1) : (t = n);
               }
@@ -34686,7 +34882,10 @@
             lights: {
               ambientLightColor: { value: [] },
               lightProbe: { value: [] },
-              directionalLights: { value: [], properties: { direction: {}, color: {} } },
+              directionalLights: {
+                value: [],
+                properties: { direction: {}, color: {} },
+              },
               directionalLightShadows: {
                 value: [],
                 properties: {
@@ -34726,7 +34925,12 @@
               spotLightMatrix: { value: [] },
               pointLights: {
                 value: [],
-                properties: { color: {}, position: {}, decay: {}, distance: {} },
+                properties: {
+                  color: {},
+                  position: {},
+                  decay: {},
+                  distance: {},
+                },
               },
               pointLightShadows: {
                 value: [],
@@ -34884,7 +35088,11 @@
               uniforms: (0, i.Iit)([
                 o.common,
                 o.fog,
-                { scale: { value: 1 }, dashSize: { value: 1 }, totalSize: { value: 2 } },
+                {
+                  scale: { value: 1 },
+                  dashSize: { value: 1 },
+                  totalSize: { value: 2 },
+                },
               ]),
               vertexShader: s.linedashed_vert,
               fragmentShader: s.linedashed_frag,
@@ -34931,7 +35139,11 @@
               fragmentShader: s.backgroundCube_frag,
             },
             cube: {
-              uniforms: { tCube: { value: null }, tFlip: { value: -1 }, opacity: { value: 1 } },
+              uniforms: {
+                tCube: { value: null },
+                tFlip: { value: -1 },
+                opacity: { value: 1 },
+              },
               vertexShader: s.cube_vert,
               fragmentShader: s.cube_frag,
             },
@@ -36779,7 +36991,7 @@
         function Ve(e, t, n) {
           const i = e.name,
             r = i.length;
-          for (Oe.lastIndex = 0; ; ) {
+          for (Oe.lastIndex = 0; ;) {
             const a = Oe.exec(i),
               s = Oe.lastIndex;
             let o = a[1];
@@ -38061,10 +38273,19 @@
                   };
                   break;
                 case "PointLight":
-                  n = { position: new i.Pq0(), color: new i.Q1f(), distance: 0, decay: 0 };
+                  n = {
+                    position: new i.Pq0(),
+                    color: new i.Q1f(),
+                    distance: 0,
+                    decay: 0,
+                  };
                   break;
                 case "HemisphereLight":
-                  n = { direction: new i.Pq0(), skyColor: new i.Q1f(), groundColor: new i.Q1f() };
+                  n = {
+                    direction: new i.Pq0(),
+                    skyColor: new i.Q1f(),
+                    groundColor: new i.Q1f(),
+                  };
                   break;
                 case "RectAreaLight":
                   n = {
@@ -39468,7 +39689,11 @@
               t.isExternalTexture && (s.__webglTexture = t.sourceTexture ? t.sourceTexture : null);
             n.bindTexture(e.TEXTURE_2D, s.__webglTexture, e.TEXTURE0 + a);
           }
-          const _ = { [i.GJx]: e.REPEAT, [i.ghU]: e.CLAMP_TO_EDGE, [i.kTW]: e.MIRRORED_REPEAT },
+          const _ = {
+              [i.GJx]: e.REPEAT,
+              [i.ghU]: e.CLAMP_TO_EDGE,
+              [i.kTW]: e.MIRRORED_REPEAT,
+            },
             C = {
               [i.hxR]: e.NEAREST,
               [i.pHI]: e.NEAREST_MIPMAP_NEAREST,
@@ -40898,7 +41123,11 @@
                       ((o = b.stencil ? t.DEPTH24_STENCIL8 : t.DEPTH_COMPONENT24),
                       (n = b.stencil ? i.dcC : i.zdS),
                       (r = b.stencil ? i.V3x : i.bkx));
-                    const l = { colorFormat: t.RGBA8, depthFormat: o, scaleFactor: s };
+                    const l = {
+                      colorFormat: t.RGBA8,
+                      depthFormat: o,
+                      scaleFactor: s,
+                    };
                     ((u = this.getBinding()),
                       (f = u.createProjectionLayer(l)),
                       a.updateRenderState({ layers: [f] }),
@@ -43231,7 +43460,7 @@
       ) {
         var n = t.getElementsByTagName("script");
         if (n.length)
-          for (var r = n.length - 1; r > -1 && (!e || !/^http(s?):/.test(e)); ) e = n[r--].src;
+          for (var r = n.length - 1; r > -1 && (!e || !/^http(s?):/.test(e));) e = n[r--].src;
       }
       if (!e) throw new Error("Automatic publicPath is not supported in this browser");
       ((e = e
@@ -44163,15 +44392,30 @@
             (0, R.gn)(this, Oe, "f").push(
               (0, R.gn)(this, Fe, "f").animate(
                 [
-                  { opacity: 0, transform: "translateX(20px)", offset: 0, easing: "ease-in-out" },
-                  { opacity: 1, transform: "translateX(0)", offset: 1 / 28, easing: "ease-in-out" },
+                  {
+                    opacity: 0,
+                    transform: "translateX(20px)",
+                    offset: 0,
+                    easing: "ease-in-out",
+                  },
+                  {
+                    opacity: 1,
+                    transform: "translateX(0)",
+                    offset: 1 / 28,
+                    easing: "ease-in-out",
+                  },
                   {
                     opacity: 1,
                     transform: "translateX(0)",
                     offset: 27 / 28,
                     easing: "ease-in-out",
                   },
-                  { opacity: 0, transform: "translateX(-10px)", offset: 1, easing: "ease-in-out" },
+                  {
+                    opacity: 0,
+                    transform: "translateX(-10px)",
+                    offset: 1,
+                    easing: "ease-in-out",
+                  },
                 ],
                 { duration: 3500 },
               ),
@@ -44712,9 +44956,15 @@
               },
               "f",
             ),
-            window.addEventListener("touchstart", (0, R.gn)(this, Rt, "f"), { passive: !1 }),
-            window.addEventListener("touchmove", (0, R.gn)(this, Rt, "f"), { passive: !1 }),
-            window.addEventListener("touchend", (0, R.gn)(this, Rt, "f"), { passive: !1 }));
+            window.addEventListener("touchstart", (0, R.gn)(this, Rt, "f"), {
+              passive: !1,
+            }),
+            window.addEventListener("touchmove", (0, R.gn)(this, Rt, "f"), {
+              passive: !1,
+            }),
+            window.addEventListener("touchend", (0, R.gn)(this, Rt, "f"), {
+              passive: !1,
+            }));
         }
         get isEnabled() {
           return (0, R.gn)(this, Pt, "f");
@@ -45330,7 +45580,11 @@
             if (null != (0, R.gn)(this, mn, "f")) {
               const e = (0, R.gn)(this, mn, "f");
               if (e.readyState == WebSocket.OPEN) {
-                const t = { version: "0.6.2", type: "createInvite", key: (0, R.gn)(this, gn, "f") };
+                const t = {
+                  version: "0.6.2",
+                  type: "createInvite",
+                  key: (0, R.gn)(this, gn, "f"),
+                };
                 (null == (0, R.gn)(this, Sn, "f").nickname &&
                   (t.nickname = (0, R.gn)(this, Sn, "f").uncensoredNickname),
                   e.send(JSON.stringify(t)));
@@ -45344,7 +45598,11 @@
                   (console.error("WebSocket connection timed out"), e.close());
                 }, 35e3);
               (e.addEventListener("open", () => {
-                const t = { version: "0.6.2", type: "createInvite", key: (0, R.gn)(this, gn, "f") };
+                const t = {
+                  version: "0.6.2",
+                  type: "createInvite",
+                  key: (0, R.gn)(this, gn, "f"),
+                };
                 (null == (0, R.gn)(this, Sn, "f").nickname &&
                   (t.nickname = (0, R.gn)(this, Sn, "f").uncensoredNickname),
                   e.send(JSON.stringify(t)));
@@ -45438,7 +45696,11 @@
                         (0, R.GG)(
                           this,
                           dn,
-                          { inviteCode: t, timeoutStart: new Date(), timeoutMilliseconds: r },
+                          {
+                            inviteCode: t,
+                            timeoutStart: new Date(),
+                            timeoutMilliseconds: r,
+                          },
                           "f",
                         ),
                         (0, R.GG)(this, un, !1, "f"),
@@ -45611,7 +45873,10 @@
                               "closed" != o.connectionState) ||
                               (l.close(), h.close(), r());
                           }));
-                        const l = o.createDataChannel("reliable", { negotiated: !0, id: 0 });
+                        const l = o.createDataChannel("reliable", {
+                          negotiated: !0,
+                          id: 0,
+                        });
                         l.binaryType = "arraybuffer";
                         const h = o.createDataChannel("unreliable", {
                           negotiated: !0,
@@ -45661,7 +45926,10 @@
                         }),
                           (async () => {
                             await o.setRemoteDescription(
-                              new RTCSessionDescription({ type: "offer", sdp: n }),
+                              new RTCSessionDescription({
+                                type: "offer",
+                                sdp: n,
+                              }),
                             );
                             const i = await o.createAnswer();
                             (await o.setLocalDescription(i),
@@ -46196,7 +46464,11 @@
             for (const n of (0, R.gn)(this, Tn, "f"))
               if (n != e && n.unsentCarStates.length > 0)
                 for (const e of n.unsentCarStates)
-                  t.push({ id: n.id, resetCounter: n.resetCounter, carState: e });
+                  t.push({
+                    id: n.id,
+                    resetCounter: n.resetCounter,
+                    carState: e,
+                  });
             const n = [];
             for (const e of t) {
               const t = Xt._c(e.carState),
@@ -47015,7 +47287,11 @@
             if (
               ((m.textContent = "ms"),
               p.appendChild(m),
-              (0, R.gn)(this, dr, "f").push({ playerId: i.id, textNode: g, unitElement: m }),
+              (0, R.gn)(this, dr, "f").push({
+                playerId: i.id,
+                textNode: g,
+                unitElement: m,
+              }),
               (0, R.gn)(this, or, "f") instanceof ti)
             )
               if (i.isSelf) {
@@ -47184,7 +47460,12 @@
               { offset: 0.96875, opacity: "1", transform: "none" },
               { offset: 1, opacity: "0", transform: "translateX(20px)" },
             ],
-            { duration: 3200, iterations: 1, fill: "forwards", easing: "ease-in-out" },
+            {
+              duration: 3200,
+              iterations: 1,
+              fill: "forwards",
+              easing: "ease-in-out",
+            },
           ),
             ((0, R.gn)(this, _r, "f").textContent = e));
         }
@@ -47694,7 +47975,11 @@
                 (0, R.GG)(
                   this,
                   $a,
-                  { time: t, position: a.then((e) => e?.newPosition ?? null), recording: i },
+                  {
+                    time: t,
+                    position: a.then((e) => e?.newPosition ?? null),
+                    recording: i,
+                  },
                   "f",
                 );
               } else a = Promise.resolve(null);
@@ -47763,7 +48048,10 @@
               if (
                 (null == c ||
                   c.settings.isSelf ||
-                  (l = { record: c.settings.time, nickname: c.settings.nickname }),
+                  (l = {
+                    record: c.settings.time,
+                    nickname: c.settings.nickname,
+                  }),
                 null == (0, R.gn)(this, Wa, "f"))
               )
                 (0, R.GG)(
@@ -47875,7 +48163,10 @@
                   (t) => {
                     (i.push(t),
                       t.nextCheckpointIndex > a &&
-                        (r.push({ time: new bt.A(t.frames), speedKmh: t.speedKmh }),
+                        (r.push({
+                          time: new bt.A(t.frames),
+                          speedKmh: t.speedKmh,
+                        }),
                         (a = t.nextCheckpointIndex)),
                       null == e.finishSpeedKmh &&
                         null != t.finishFrames &&
@@ -47963,7 +48254,10 @@
                   (0, R.gn)(this, Ea, "f").setRecord(
                     null == (0, R.gn)(this, es, "f")
                       ? null
-                      : { time: (0, R.gn)(this, es, "f").time, position: Promise.resolve(null) },
+                      : {
+                          time: (0, R.gn)(this, es, "f").time,
+                          position: Promise.resolve(null),
+                        },
                   ));
                 break;
               default:
@@ -48431,7 +48725,10 @@
                 (0, R.gn)(this, Ea, "f").setRecord(
                   null == (0, R.gn)(this, es, "f")
                     ? null
-                    : { time: (0, R.gn)(this, es, "f").time, position: Promise.resolve(null) },
+                    : {
+                        time: (0, R.gn)(this, es, "f").time,
+                        position: Promise.resolve(null),
+                      },
                 );
                 break;
               default:
@@ -48552,7 +48849,11 @@
                         finishFrames: null,
                         nextCheckpointIndex: 0,
                         hasCheckpointToRespawnAt: !1,
-                        position: { x: e.position.x, y: e.position.y, z: e.position.z },
+                        position: {
+                          x: e.position.x,
+                          y: e.position.y,
+                          z: e.position.z,
+                        },
                         quaternion: {
                           x: e.quaternion.x,
                           y: e.quaternion.y,
@@ -48572,7 +48873,13 @@
                         wheelSkidInfo: [0, 0, 0, 0],
                         steering: 0,
                         brakeLightEnabled: !1,
-                        controls: { up: !1, right: !1, down: !1, left: !1, reset: !1 },
+                        controls: {
+                          up: !1,
+                          right: !1,
+                          down: !1,
+                          left: !1,
+                          reset: !1,
+                        },
                       };
                       (r.car.setCarState(n, !0),
                         (r.time = -t),
@@ -48835,14 +49142,20 @@
                         n.material.dispose(),
                         (n = null))
                       : (t.geometry.computeVertexNormals(),
-                        (t.material = new M.G_z({ color: 4464662, side: M.$EB })),
+                        (t.material = new M.G_z({
+                          color: 4464662,
+                          side: M.$EB,
+                        })),
                         t.position.set(161.8860081067957, 0.22, -436.26312438336595),
                         t.rotation.set(0, 2.85, 0),
                         t.scale.set(0.05, 0.05, 0.05),
                         s.scene.add(t),
                         s.addMaterial(t.material),
                         n.geometry.computeVertexNormals(),
-                        (n.material = new M.G_z({ color: 10358543, side: M.$EB })),
+                        (n.material = new M.G_z({
+                          color: 10358543,
+                          side: M.$EB,
+                        })),
                         n.position.copy(t.position),
                         n.rotation.copy(t.rotation),
                         n.scale.copy(t.scale),
@@ -49056,7 +49369,7 @@
                 let a = e.time + n;
                 t < i - r ? (a -= 0.5 * r) : t > i + r && (a += 0.5 * r);
                 const s = Math.floor(1e3 * a);
-                for (; e.bufferedCarStates.length > 0; ) {
+                for (; e.bufferedCarStates.length > 0;) {
                   const t = e.bufferedCarStates[0];
                   if (!(t.frames <= s)) break;
                   (e.car.setCarState(t, !1), e.bufferedCarStates.shift());
@@ -55583,8 +55896,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Units"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Metric"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Imperial"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Metric"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Imperial"),
+                  value: "true",
+                },
               ],
               P.A.ImperialUnitsEnabled,
             ),
@@ -55592,8 +55911,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Reset hint"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Disabled"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Enabled"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Disabled"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Enabled"),
+                  value: "true",
+                },
               ],
               P.A.ResetHintEnabled,
             ),
@@ -55601,8 +55926,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Ghost car"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Disabled"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Enabled"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Disabled"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Enabled"),
+                  value: "true",
+                },
               ],
               P.A.GhostCarEnabled,
             ),
@@ -55610,8 +55941,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Default camera"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Default"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Cockpit"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Default"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Cockpit"),
+                  value: "true",
+                },
               ],
               P.A.DefaultCameraMode,
             ),
@@ -55619,8 +55956,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Cockpit camera mode"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Hold"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Toggle"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Hold"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Toggle"),
+                  value: "true",
+                },
               ],
               P.A.CockpitCameraToggle,
             ),
@@ -55628,9 +55971,18 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Checkpoints"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "off" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Bottom"), value: "bottom" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Top"), value: "top" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "off",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Bottom"),
+                  value: "bottom",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Top"),
+                  value: "top",
+                },
               ],
               P.A.Checkpoints,
             ),
@@ -55638,9 +55990,18 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Timer"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "off" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Bottom"), value: "bottom" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Top"), value: "top" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "off",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Bottom"),
+                  value: "bottom",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Top"),
+                  value: "top",
+                },
               ],
               P.A.Timer,
             ),
@@ -55648,9 +56009,18 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Speedometer"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "off" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Bottom"), value: "bottom" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Top"), value: "top" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "off",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Bottom"),
+                  value: "bottom",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Top"),
+                  value: "top",
+                },
               ],
               P.A.Speedometer,
             ),
@@ -55662,8 +56032,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Vibration"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"),
+                  value: "true",
+                },
               ],
               P.A.VibrationEnabled,
             ),
@@ -55671,8 +56047,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Steering control side"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Left"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Right"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Left"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Right"),
+                  value: "true",
+                },
               ],
               P.A.TouchSteeringSide,
             ),
@@ -55724,8 +56106,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Clouds"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"),
+                  value: "true",
+                },
               ],
               P.A.CloudsEnabled,
             ),
@@ -55733,8 +56121,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Particles"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"),
+                  value: "true",
+                },
               ],
               P.A.ParticlesEnabled,
             ),
@@ -55742,8 +56136,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Skidmarks"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"),
+                  value: "true",
+                },
               ],
               P.A.SkidmarksEnabled,
             ),
@@ -55751,8 +56151,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Fog"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"),
+                  value: "true",
+                },
               ],
               P.A.FogEnabled,
             ),
@@ -55772,8 +56178,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Screen Pixel Density"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Fixed"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Auto"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Fixed"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Auto"),
+                  value: "true",
+                },
               ],
               P.A.ScreenPixelDensity,
             ),
@@ -55781,8 +56193,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Anti-aliasing (requires restart)"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"),
+                  value: "true",
+                },
               ],
               P.A.Antialiasing,
             ),
@@ -55814,8 +56232,14 @@
               this,
               Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Ghost car sounds"),
               [
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"), value: "false" },
-                { title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"), value: "true" },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "Off"),
+                  value: "false",
+                },
+                {
+                  title: Ns.getFromLanguage((0, R.gn)(this, Js, "f"), "On"),
+                  value: "true",
+                },
               ],
               P.A.GhostCarSoundsEnabled,
             ),
@@ -56311,7 +56735,7 @@
       function qo(e) {
         let t = Math.trunc(e).toString(),
           n = "";
-        for (; t.length > 3; ) ((n = " " + t.slice(-3) + n), (t = t.slice(0, -3)));
+        for (; t.length > 3;) ((n = " " + t.slice(-3) + n), (t = t.slice(0, -3)));
         return ((n = t + n), n);
       }
       function Qo() {
@@ -56977,7 +57401,10 @@
             C.textContent +=
               e.toLocaleDateString() +
               " " +
-              e.toLocaleTimeString(void 0, { hour: "numeric", minute: "2-digit" });
+              e.toLocaleTimeString(void 0, {
+                hour: "numeric",
+                minute: "2-digit",
+              });
           } else C.textContent += t.get("Unknown");
           (_.appendChild(C), (0, R.gn)(this, ll, "f").appendChild(_));
           const P = document.createElement("div");
@@ -57287,7 +57714,7 @@
                   let o,
                     l,
                     c = "";
-                  for (; r < i.length; ) {
+                  for (; r < i.length;) {
                     if (i.length < r + 1)
                       return (console.error(n + "Incomplete (countryCode)"), void t.close());
                     const e = i[r];
@@ -57383,7 +57810,7 @@
                           void t.close()
                         );
                       let r = 0;
-                      for (; r < i.length; ) {
+                      for (; r < i.length;) {
                         if (i.length < r + 4)
                           return (console.error(n + "Incomplete (id)"), void t.close());
                         const a = i[r + 0] | (i[r + 1] << 8) | (i[r + 2] << 16) | (i[r + 3] << 24);
@@ -57462,7 +57889,7 @@
                     return (
                       console.error(n + "Received TrackChunk before TrackId"), void t.close()
                     );
-                  for (; r < i.length; )
+                  for (; r < i.length;)
                     (((0, R.gn)(this, $l, "f").buffer += String.fromCharCode(i[r])), (r += 1));
                   break;
                 case $t.EndSession:
@@ -57527,7 +57954,7 @@
                   break;
                 }
                 case $t.PingData:
-                  for (n += $t[$t.PingData] + ": "; r < i.length; ) {
+                  for (n += $t[$t.PingData] + ": "; r < i.length;) {
                     if (i.length < r + 4)
                       return (console.error(n + "Incomplete (id)"), void t.close());
                     const e = i[r + 0] | (i[r + 1] << 8) | (i[r + 2] << 16) | (i[r + 3] << 24);
@@ -57602,7 +58029,11 @@
                     ((0, R.GG)(
                       this,
                       tc,
-                      { inviteCode: a, timeoutStart: o, timeoutMilliseconds: l },
+                      {
+                        inviteCode: a,
+                        timeoutStart: o,
+                        timeoutMilliseconds: l,
+                      },
                       "f",
                     ),
                       (0, R.GG)(this, nc, !1, "f"));
@@ -57753,7 +58184,12 @@
                       null == e && ((h = !0), v()));
                   ((a.length = 0),
                     (i.onicecandidate = (e) => {
-                      (u.send(JSON.stringify({ version: "0.6.2", candidate: e.candidate })),
+                      (u.send(
+                        JSON.stringify({
+                          version: "0.6.2",
+                          candidate: e.candidate,
+                        }),
+                      ),
                         null == e.candidate && ((h = !0), v()));
                     }));
                 }),
@@ -57824,7 +58260,10 @@
                       (((0, R.gn)(this, Ql, "f").id = t.clientId),
                         i
                           .setRemoteDescription(
-                            new RTCSessionDescription({ type: "answer", sdp: e }),
+                            new RTCSessionDescription({
+                              type: "answer",
+                              sdp: e,
+                            }),
                           )
                           .then(() => {
                             l = !0;
@@ -58453,7 +58892,12 @@
               const i = (n, a, s, o) => {
                   (t.removeNewSessionCallback(i),
                     t.removeConnectionLostCallback(r),
-                    e({ sessionId: n, gameMode: a, trackMetadata: s, trackData: o }));
+                    e({
+                      sessionId: n,
+                      gameMode: a,
+                      trackMetadata: s,
+                      trackData: o,
+                    }));
                 },
                 r = () => {
                   n(new Error("Connection lost"));
@@ -60580,7 +61024,10 @@
           const t = (0, R.gn)(this, Vd, "f").get(e.id);
           if (null != t)
             return t instanceof Promise
-              ? t.then(({ trackMetadata: e, trackData: t }) => ({ trackMetadata: e, trackData: t }))
+              ? t.then(({ trackMetadata: e, trackData: t }) => ({
+                  trackMetadata: e,
+                  trackData: t,
+                }))
               : t;
           const n = (0, R.gn)(this, Bd, "m", qd).call(this, e.trackUrl);
           return (
@@ -60588,7 +61035,10 @@
             n
               .then(
                 ({ trackMetadata: t, trackData: n }) => (
-                  (0, R.gn)(this, Vd, "f").set(e.id, { trackMetadata: t, trackData: n }),
+                  (0, R.gn)(this, Vd, "f").set(e.id, {
+                    trackMetadata: t,
+                    trackData: n,
+                  }),
                   { trackMetadata: t, trackData: n }
                 ),
               )
@@ -60915,7 +61365,11 @@
               {
                 id: "4058e3616fbd79b848e70037adde4f12b4413011050aaf1c9d875cdbe2e33d68",
                 group: "0.6.1",
-                trackMetadata: { name: "Amberbound", author: "Hero <3", lastModified: null },
+                trackMetadata: {
+                  name: "Amberbound",
+                  author: "Hero <3",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/amberbound.track",
                 thumbnail: "tracks/community/thumbnails/amberbound.png",
@@ -60935,7 +61389,11 @@
               {
                 id: "76e1920a3ca015033a0b21156848def2c248c95d97ccf4aab2312a0302beefe0",
                 group: "0.6.1",
-                trackMetadata: { name: "Star Bound", author: "skrdh & Zihcx", lastModified: null },
+                trackMetadata: {
+                  name: "Star Bound",
+                  author: "skrdh & Zihcx",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/star_bound.track",
                 thumbnail: "tracks/community/thumbnails/star_bound.png",
@@ -61003,7 +61461,11 @@
               {
                 id: "520c4f511821ced30b99bceafbb02e6b7531e867126b0756e68d5e157691ef2f",
                 group: "0.6.0",
-                trackMetadata: { name: "Arx Lucida", author: "Flatbread", lastModified: null },
+                trackMetadata: {
+                  name: "Arx Lucida",
+                  author: "Flatbread",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/arx_lucida.track",
                 thumbnail: "tracks/community/thumbnails/arx_lucida.png",
@@ -61023,7 +61485,11 @@
               {
                 id: "a8913b96daceb5b615fe45aad2bb104e04eb7db140242934657111e1d1f55b89",
                 group: "0.6.0",
-                trackMetadata: { name: "Sky Bound", author: "Zihcx", lastModified: null },
+                trackMetadata: {
+                  name: "Sky Bound",
+                  author: "Zihcx",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/sky_bound.track",
                 thumbnail: "tracks/community/thumbnails/sky_bound.png",
@@ -61031,7 +61497,11 @@
               {
                 id: "66f43b2d2a17f3cee05a127040ca409795058510bd3d1ac7eee224512ec532f5",
                 group: "0.6.0",
-                trackMetadata: { name: "ShardMir", author: "Jurre", lastModified: null },
+                trackMetadata: {
+                  name: "ShardMir",
+                  author: "Jurre",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/shardmir.track",
                 thumbnail: "tracks/community/thumbnails/shardmir.png",
@@ -61039,7 +61509,11 @@
               {
                 id: "fcbba504800751b0fb404a7cd1c9591befdf688ad5451ab2bc1f3651590cc5fc",
                 group: "0.6.0",
-                trackMetadata: { name: "𝔖𝔱𝔢𝔦𝔫𝔴𝔞𝔩𝔩𝔟𝔲𝔯𝔤", author: "TD_blox", lastModified: null },
+                trackMetadata: {
+                  name: "𝔖𝔱𝔢𝔦𝔫𝔴𝔞𝔩𝔩𝔟𝔲𝔯𝔤",
+                  author: "TD_blox",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/steinwallburg.track",
                 thumbnail: "tracks/community/thumbnails/steinwallburg.png",
@@ -61047,7 +61521,11 @@
               {
                 id: "9ba44e8eafd0158e7e1f63e7d609db308c53f337b79e86bd0b630225451eef34",
                 group: "0.6.0",
-                trackMetadata: { name: "𝕻𝖆𝖗𝖆𝖉𝖎𝖘𝖊 𝕻𝖆𝖑𝖆𝖈𝖊", author: "TD_blox", lastModified: null },
+                trackMetadata: {
+                  name: "𝕻𝖆𝖗𝖆𝖉𝖎𝖘𝖊 𝕻𝖆𝖑𝖆𝖈𝖊",
+                  author: "TD_blox",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/paradise_palace.track",
                 thumbnail: "tracks/community/thumbnails/paradise_palace.png",
@@ -61055,7 +61533,11 @@
               {
                 id: "b3889905b6df31cbe302e58e975988385607771605bf6e8e8e8e31b3d2dc8aa1",
                 group: "0.6.0",
-                trackMetadata: { name: "Sunken Glyphs", author: "2xi", lastModified: null },
+                trackMetadata: {
+                  name: "Sunken Glyphs",
+                  author: "2xi",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/sunken_glyphs.track",
                 thumbnail: "tracks/community/thumbnails/sunken_glyphs.png",
@@ -61063,7 +61545,11 @@
               {
                 id: "3cd94552b12fb3a8ac45ca3a5e21a882b71b31c788989b396ab382afc69414ac",
                 group: "0.6.0",
-                trackMetadata: { name: "Grimspyre", author: "2xi and imracer", lastModified: null },
+                trackMetadata: {
+                  name: "Grimspyre",
+                  author: "2xi and imracer",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/grimspyre.track",
                 thumbnail: "tracks/community/thumbnails/grimspyre.png",
@@ -61095,7 +61581,11 @@
               {
                 id: "d03b9f7c10c95f40eed389458be51bdf2437febd5673d028da134e59e503c10b",
                 group: "0.6.0",
-                trackMetadata: { name: "Termite Terror", author: "Herny🇦🇺", lastModified: null },
+                trackMetadata: {
+                  name: "Termite Terror",
+                  author: "Herny🇦🇺",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/termite_terror.track",
                 thumbnail: "tracks/community/thumbnails/termite_terror.png",
@@ -61115,7 +61605,11 @@
               {
                 id: "a1f41dc9e884d5d4b1b6025158d70f0934dc4d892076e6c4b32dc3f3846b882e",
                 group: "0.6.0",
-                trackMetadata: { name: "Lost at sea", author: "Henrik", lastModified: null },
+                trackMetadata: {
+                  name: "Lost at sea",
+                  author: "Henrik",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/lost_at_sea.track",
                 thumbnail: "tracks/community/thumbnails/lost_at_sea.png",
@@ -61123,7 +61617,11 @@
               {
                 id: "b430aad5e481caa4588e30f46352b876b62f1ba0cf7730a15efd026c91a8f32e",
                 group: "0.6.0",
-                trackMetadata: { name: "Frosted Fjords 寒い", author: "Zihcx", lastModified: null },
+                trackMetadata: {
+                  name: "Frosted Fjords 寒い",
+                  author: "Zihcx",
+                  lastModified: null,
+                },
                 environment: wl.A.Winter,
                 trackUrl: "tracks/community/frosted_fjords.track",
                 thumbnail: "tracks/community/thumbnails/frosted_fjords.png",
@@ -61131,7 +61629,11 @@
               {
                 id: "95d8f7cbe11053dbdfaeeb2f3c3d8f53f0d45fb6abeb411a74949a4cf52f427f",
                 group: "0.6.0",
-                trackMetadata: { name: "〜✧〜Ḽevitation〜✧〜", author: "Porg", lastModified: null },
+                trackMetadata: {
+                  name: "〜✧〜Ḽevitation〜✧〜",
+                  author: "Porg",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/levitation.track",
                 thumbnail: "tracks/community/thumbnails/levitation.png",
@@ -61175,7 +61677,11 @@
               {
                 id: "b77ec520a40c4b38d3d7d653b747b1f8627c98709096568db22cd1bfec534ba6",
                 group: "0.5.2",
-                trackMetadata: { name: "Zealot", author: "BonnieBeans", lastModified: null },
+                trackMetadata: {
+                  name: "Zealot",
+                  author: "BonnieBeans",
+                  lastModified: null,
+                },
                 environment: wl.A.Winter,
                 trackUrl: "tracks/community/zealot.track",
                 thumbnail: "tracks/community/thumbnails/zealot.png",
@@ -61195,7 +61701,11 @@
               {
                 id: "9acd9aef650c4ccc41bb01f72ed44dfaa13f2e4404d2e3466f09cc1adcd9a9c0",
                 group: "0.5.2",
-                trackMetadata: { name: "⚙︎Cogware⚙︎", author: "AZiggy", lastModified: null },
+                trackMetadata: {
+                  name: "⚙︎Cogware⚙︎",
+                  author: "AZiggy",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/cogware.track",
                 thumbnail: "tracks/community/thumbnails/cogware.png",
@@ -61299,7 +61809,11 @@
               {
                 id: "18b69f54f119cfb2867abded9a1574f0799a750ef94aa744d9ec8ef6b4d565ae",
                 group: "0.5.1",
-                trackMetadata: { name: "Ghost City", author: "Nexus", lastModified: null },
+                trackMetadata: {
+                  name: "Ghost City",
+                  author: "Nexus",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/ghost_city.track",
                 thumbnail: "tracks/community/thumbnails/ghost_city.png",
@@ -61331,7 +61845,11 @@
               {
                 id: "ab8e1c13ddf394102be1cb04adcff8411127f1e7140a216d27a94fc19b7d0428",
                 group: "0.5.1",
-                trackMetadata: { name: "Joenail Jones", author: "Tacopanda", lastModified: null },
+                trackMetadata: {
+                  name: "Joenail Jones",
+                  author: "Tacopanda",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/joenail_jones.track",
                 thumbnail: "tracks/community/thumbnails/joenail_jones.png",
@@ -61339,7 +61857,11 @@
               {
                 id: "86335d78d1a06d3dc81d80f84b8ac2e8f6359e9a206826e2c36f7d3f4351bea4",
                 group: "0.5.1",
-                trackMetadata: { name: "Anubis", author: "paldeanp", lastModified: null },
+                trackMetadata: {
+                  name: "Anubis",
+                  author: "paldeanp",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/anubis.track",
                 thumbnail: "tracks/community/thumbnails/anubis.png",
@@ -61347,7 +61869,11 @@
               {
                 id: "a510bbd3341f2992a12db8a3780cb8943b6087538345d58d16602d6129742df0",
                 group: "0.5.1",
-                trackMetadata: { name: "Natsujō", author: "🇧🇦 ѕєαѕση", lastModified: null },
+                trackMetadata: {
+                  name: "Natsujō",
+                  author: "🇧🇦 ѕєαѕση",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/natsujo.track",
                 thumbnail: "tracks/community/thumbnails/natsujo.png",
@@ -61355,7 +61881,11 @@
               {
                 id: "8cf99166f12cbb56a9df4e022a0e9b8c78973adb929dbf1e265ebb9f99f01163",
                 group: "0.5.0",
-                trackMetadata: { name: "Arabica", author: "Forty", lastModified: null },
+                trackMetadata: {
+                  name: "Arabica",
+                  author: "Forty",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/arabica.track",
                 thumbnail: "tracks/community/thumbnails/arabica.png",
@@ -61375,7 +61905,11 @@
               {
                 id: "5c00f2c90bcf8230183484225d1a417e45b0ad310379acfafd4c8f1dc7345dd7",
                 group: "0.5.0",
-                trackMetadata: { name: "Winter Hollow", author: "Lotus", lastModified: null },
+                trackMetadata: {
+                  name: "Winter Hollow",
+                  author: "Lotus",
+                  lastModified: null,
+                },
                 environment: wl.A.Winter,
                 trackUrl: "tracks/community/winter_hollow.track",
                 thumbnail: "tracks/community/thumbnails/winter_hollow.png",
@@ -61383,7 +61917,11 @@
               {
                 id: "009fad7fcc215022c6b2dbb2b6de622f07cd88d4930b8e2b6a6b74c1f5de9e44",
                 group: "0.5.0",
-                trackMetadata: { name: "Clay temples", author: "HeroHunter", lastModified: null },
+                trackMetadata: {
+                  name: "Clay temples",
+                  author: "HeroHunter",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/clay_temples.track",
                 thumbnail: "tracks/community/thumbnails/clay_temples.png",
@@ -61403,7 +61941,11 @@
               {
                 id: "2ed125037366052871fbb97da6e1bda49cfeb471f6b9c8fa799d520bdb3683e2",
                 group: "0.5.0",
-                trackMetadata: { name: "DESERT STALLION", author: "ARKANGEL", lastModified: null },
+                trackMetadata: {
+                  name: "DESERT STALLION",
+                  author: "ARKANGEL",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/desert_stallion.track",
                 thumbnail: "tracks/community/thumbnails/desert_stallion.png",
@@ -61411,7 +61953,11 @@
               {
                 id: "f79b1d863d50f9e3b4489988698065c6d775ff3ec90bf91085bad05ad5ec8316",
                 group: "0.5.0",
-                trackMetadata: { name: "Last Remnant", author: "cwcinc", lastModified: null },
+                trackMetadata: {
+                  name: "Last Remnant",
+                  author: "cwcinc",
+                  lastModified: null,
+                },
                 environment: wl.A.Desert,
                 trackUrl: "tracks/community/last_remnant.track",
                 thumbnail: "tracks/community/thumbnails/last_remnant.png",
@@ -61419,7 +61965,11 @@
               {
                 id: "27429a1d1bf05770851e3919af70f47c6cd7a269c67032b084fb4345f6c271ce",
                 group: "0.5.0",
-                trackMetadata: { name: "lu muvimento", author: "Noia", lastModified: null },
+                trackMetadata: {
+                  name: "lu muvimento",
+                  author: "Noia",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/lu_muvimento.track",
                 thumbnail: "tracks/community/thumbnails/lu_muvimento.png",
@@ -61427,7 +61977,11 @@
               {
                 id: "f5c327cf09b90e4de8c3c1f9c910dbb7988cf15485d2e4beec3cc03aef408c5c",
                 group: "0.5.0",
-                trackMetadata: { name: "90*RESET", author: "Haru-PT", lastModified: null },
+                trackMetadata: {
+                  name: "90*RESET",
+                  author: "Haru-PT",
+                  lastModified: null,
+                },
                 environment: wl.A.Summer,
                 trackUrl: "tracks/community/90_reset.track",
                 thumbnail: "tracks/community/thumbnails/90_reset.png",
@@ -61483,7 +62037,11 @@
               {
                 id: "191737cc4d1b74949e992d99371e5c7f5fc446a716af571c6e5449b23e9f4558",
                 group: "0.5.0",
-                trackMetadata: { name: "Snow Park", author: "Vlady87", lastModified: null },
+                trackMetadata: {
+                  name: "Snow Park",
+                  author: "Vlady87",
+                  lastModified: null,
+                },
                 environment: wl.A.Winter,
                 trackUrl: "tracks/community/snow_park.track",
                 thumbnail: "tracks/community/thumbnails/snow_park.png",
@@ -61621,7 +62179,7 @@
         }
         getRandomOfficialTrack() {
           const e = (0, R.gn)(this, Gd, "f").map((e) => e.id);
-          for (; e.length > 0; ) {
+          for (; e.length > 0;) {
             const t = Math.floor(Math.random() * e.length),
               n = e[t],
               i = (0, R.gn)(this, Vd, "f").get(n);
@@ -61662,7 +62220,10 @@
                 id: i.id,
                 trackMetadata: i.trackMetadata,
                 loadCallback: () =>
-                  Promise.resolve({ trackMetadata: i.trackMetadata, trackData: i.trackData }),
+                  Promise.resolve({
+                    trackMetadata: i.trackMetadata,
+                    trackData: i.trackData,
+                  }),
                 trackCategory: "custom",
               }
             : null;
@@ -62613,7 +63174,9 @@
           ((r.wrapT = M.GJx), (r.wrapS = M.GJx));
           const a = new M.Gu$(1e6, 5, 2, 0, 2 * Math.PI, 0, Math.PI),
             s = new M.BKk({
-              defines: { CLOUDS_ENABLED: t.getSettingBoolean(P.A.CloudsEnabled) },
+              defines: {
+                CLOUDS_ENABLED: t.getSettingBoolean(P.A.CloudsEnabled),
+              },
               uniforms: {
                 scrollA: { value: (0, R.gn)(this, mu, "f") },
                 scrollB: { value: (0, R.gn)(this, Au, "f") },
@@ -62796,7 +63359,11 @@
                 try {
                   const e = (0, R.gn)(this, Ru, "f").getItem(t);
                   if (null != e) {
-                    const n = { name: t.substring(9), author: null, lastModified: null },
+                    const n = {
+                        name: t.substring(9),
+                        author: null,
+                        lastModified: null,
+                      },
                       i = yu._(e);
                     if (null == i) throw new Error("Failed to load v1 track for migration");
                     if (!this.saveCustomTrack(n, i, new Date()))
@@ -62865,7 +63432,11 @@
                 try {
                   const e = (0, R.gn)(this, Ru, "f").getItem(t);
                   if (null != e) {
-                    const n = { name: t.substring(9), author: null, lastModified: null },
+                    const n = {
+                        name: t.substring(9),
+                        author: null,
+                        lastModified: null,
+                      },
                       i = wu._(e);
                     if (null == i) throw new Error("Failed to load v2 track for migration");
                     if (!this.saveCustomTrack(n, i, new Date()))
@@ -62988,7 +63559,11 @@
                 try {
                   const e = (0, R.gn)(this, Ru, "f").getItem(t);
                   if (null != e) {
-                    const n = { name: t.substring(19), author: null, lastModified: null },
+                    const n = {
+                        name: t.substring(19),
+                        author: null,
+                        lastModified: null,
+                      },
                       i = JSON.parse(e);
                     if (null == i || "object" != typeof i)
                       throw new Error("Track data is not an object");
@@ -63506,7 +64081,11 @@
           const i = Ml.A.fromExportString(t);
           return null == i
             ? null
-            : { trackMetadata: i.trackMetadata, trackData: i.trackData, saveTime: n };
+            : {
+                trackMetadata: i.trackMetadata,
+                trackData: i.trackData,
+                saveTime: n,
+              };
         }
         deleteCustomTrack(e) {
           try {
@@ -64113,7 +64692,12 @@
                           if (!("carStyle" in e) || "string" != typeof e.carStyle)
                             return void n(new Error("JSON item carStyle field has incorrect type"));
                           const o = Jt.A.deserializeSafe(e.carStyle);
-                          r.push({ recording: t, time: s, verifiedState: i, carStyle: o });
+                          r.push({
+                            recording: t,
+                            time: s,
+                            verifiedState: i,
+                            carStyle: o,
+                          });
                         }
                         e(r);
                       } catch (e) {
@@ -64198,7 +64782,10 @@
                               );
                             l({
                               uploadId: t,
-                              positionChange: { previousPosition: n, newPosition: i },
+                              positionChange: {
+                                previousPosition: n,
+                                newPosition: i,
+                              },
                             });
                           }
                         } catch (e) {
@@ -64304,9 +64891,17 @@
                             t.frames > ie.A.maxFrames
                           )
                             return void s(new Error("Recording frames is not a valid integer"));
-                          i.push({ id: t.id, recording: t.recording, frames: t.frames });
+                          i.push({
+                            id: t.id,
+                            recording: t.recording,
+                            frames: t.frames,
+                          });
                         }
-                        a({ unverifiedRecordings: i, exhaustive: t, estimatedRemaining: n });
+                        a({
+                          unverifiedRecordings: i,
+                          exhaustive: t,
+                          estimatedRemaining: n,
+                        });
                       } catch (e) {
                         s(new Error("Unknown error: " + String(e)));
                       }
@@ -64359,7 +64954,12 @@
                       if (!("isVerifier" in e) || "boolean" != typeof e.isVerifier)
                         return void n(new Error("IsVerifier is not a boolean"));
                       const l = e.isVerifier;
-                      t({ nickname: i, countryCode: s, carStyle: o, isVerifier: l });
+                      t({
+                        nickname: i,
+                        countryCode: s,
+                        carStyle: o,
+                        isVerifier: l,
+                      });
                     } catch (e) {
                       n(new Error("Unknown error: " + String(e)));
                     }
@@ -65402,8 +66002,16 @@
                 unit: f ? "mph" : "km/h",
                 calculation: (e) => (f ? Math.abs(e.speedKmh) / 1.609344 : Math.abs(e.speedKmh)),
               },
-              { name: n.get("Speed"), unit: "m/s", calculation: (e) => Math.abs(e.speedKmh) / 3.6 },
-              { name: n.get("Steering angle"), unit: "°", calculation: (e) => p(e.steering) },
+              {
+                name: n.get("Speed"),
+                unit: "m/s",
+                calculation: (e) => Math.abs(e.speedKmh) / 3.6,
+              },
+              {
+                name: n.get("Steering angle"),
+                unit: "°",
+                calculation: (e) => p(e.steering),
+              },
               {
                 name: n.get("Grip") + " " + n.get("Average"),
                 unit: "%",

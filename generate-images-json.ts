@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
-const jsonPath = "./kcartylop/images.json";
-const imagesPath = "./kcartylop/images";
+const jsonPath = "./main/images.json";
+const imagesPath = "./main/images";
 
 const files = await fs.readdir(imagesPath);
 const jsonData = {} as Record<string, string>;

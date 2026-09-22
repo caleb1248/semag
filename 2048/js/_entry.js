@@ -1,0 +1,10 @@
+import "./bind_polyfill.js";
+import "./classlist_polyfill.js";
+import "./animframe_polyfill.js";
+import "./keyboard_input_manager.js";
+import "./html_actuator.js";
+import "./grid.js";
+import "./tile.js";
+import "./local_storage_manager.js";
+import "./game_manager.js";
+import "./application.js";

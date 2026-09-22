@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/eruda" onload="eruda.init()"></script> -->
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"
+    />
+    <script>
+      /** @type {Worker | undefined} */
+      let worker;
+      /**
+       * Archive path (no leading slash) -> blob URL, filled in once the worker
+       * has extracted the archive.
+       * @type {Record<string, string>}
+       */
+      let blobUrls = {};
+
+      /**
+       * Resolve a request URL against the page and look it up in the archive.
+       * @param {string | URL} rawUrl
+       * @returns {string | undefined} the blob URL, or undefined if not in the archive
+       */
+      function blobUrlFor(rawUrl) {
+        const urlString = String(rawUrl);
+        // blob:/data: URLs are already resolved; anything else is worth a lookup.
+        if (/^(blob|data):/.test(urlString)) return undefined;
+
+        let path;
+        try {
+          path = new URL(urlString, location.origin).pathname;
+        } catch (e) {
+          return undefined;
+        }
+
+        const result = blobUrls[path.replace(/^\//, "").replace(/embeds\/[a-zA-Z0-9]+\//, "")];
+        if (!result) {
+          console.warn(`Failed to resolve URL ${rawUrl} as ${path.replace(/^\//, "")}`);
+          console.info("Available blob URLs:", blobUrls);
+        }
+
+        return result || rawUrl;
+      }
+
+      function pickArchive() {
+        return new Promise((resolve, reject) => {
+          // The container holds the fixed centering so anything added alongside
+          // the button (status text, instructions) stacks with it.
+          const container = document.createElement("div");
+          container.appendChild(document.createElement("p")).innerHTML =
+            "Select a tgz file containing the assets or <a href='https://drive.google.com/uc?id=1jE-KnZeTNan1B-8F5AcZCKFMVO6H0MZ9&export=download' target='_blank' rel='noopener noreferrer'>download it here</a>.";
+          container.style.cssText =
+            "position:fixed;inset:0;display:flex;flex-direction:column;" +
+            "align-items:center;justify-content:center;gap:1em;z-index:9999;";
+
+          const button = document.createElement("button");
+          button.textContent = "upload";
+          button.style.cssText = "padding:1em 2em;font:inherit;";
+          container.appendChild(button);
+
+          // A plain file input works inside a sandboxed iframe, where
+          // showOpenFilePicker is unavailable.
+          const input = document.createElement("input");
+          input.type = "file";
+          input.accept = ".tgz,.gz,.tar.gz,application/gzip";
+          input.hidden = true;
+          container.appendChild(input);
+
+          button.addEventListener("click", () => input.click());
+
+          // Dismissing the file dialog fires `cancel`; let them retry.
+          input.addEventListener("cancel", () => {
+            button.disabled = false;
+            button.textContent = "upload";
+          });
+
+          input.addEventListener("change", async () => {
+            const file = input.files && input.files[0];
+            if (!file) return;
+
+            button.disabled = true;
+            button.textContent = "Loading…";
+
+            try {
+              const buffer = await file.arrayBuffer();
+              container.remove();
+              resolve(buffer);
+            } catch (err) {
+              container.remove();
+              reject(err);
+            }
+          });
+
+          document.body.appendChild(container);
+        });
+      }
+
+      const NativeWorker = Worker;
+      const BASE_URL = "http://localhost:8080/";
+
+      function downloadFiles() {
+        return new Promise(async (resolve, reject) => {
+          let workerContents = await window
+            .fetch(
+              "https://gist.githubusercontent.com/caleb1248/57a699a1a8f6785e95895fffbcc0d24b/raw/26ab30ee39ed415f6eca55ac1c157f61d8055671/polytrack-download-worker.js",
+            )
+            .then((r) => r.text());
+          workerContents =
+            "console.log('[worker] initialized');\n" +
+            workerContents +
+            "\n//# sourceURL=polytrack-download-worker.js";
+          const blobUrl = URL.createObjectURL(
+            new Blob([workerContents], { type: "text/javascript" }),
+          );
+          worker = new NativeWorker(blobUrl);
+          console.log("Worker created:", blobUrl);
+
+          worker.addEventListener("message", (event) => {
+            const message = event.data;
+
+            switch (message.type) {
+              case "loaded":
+                // Blob URLs minted in the worker belong to this origin, so the
+                // document can use them directly.
+                blobUrls = message.urls;
+                console.log("Archive loaded:", message.count, "files");
+                resolve();
+                break;
+
+              case "error":
+                reject(new Error(message.message));
+                break;
+              default:
+                console.log("worker message", message);
+            }
+          });
+
+          try {
+            const buffer = await pickArchive();
+            worker.postMessage({ type: "load", buffer }, [buffer]);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      }
+
+      async function replaceSvgsWithDataUrls() {
+        const oldAppend = Element.prototype.appendChild;
+        Element.prototype.appendChild = function (child) {
+          if (this.innerHTML.includes('src="images')) {
+            for (const img of this.getElementsByTagName("img")) {
+              const src = img.getAttribute("src");
+              const blobUrl = src && blobUrlFor(src);
+              if (blobUrl) img.setAttribute("src", blobUrl);
+            }
+          }
+
+          return oldAppend.call(this, child);
+        };
+
+        const originalInnerHTMLDescriptor = Object.getOwnPropertyDescriptor(
+          Element.prototype,
+          "innerHTML",
+        );
+
+        Object.defineProperty(Element.prototype, "innerHTML", {
+          ...originalInnerHTMLDescriptor,
+
+          set(value) {
+            const re = /src="(images\/[^"]+\.svg)"/g;
+            const newValue = value.replace(re, (match, src) => {
+              const blobUrl = blobUrlFor(src);
+              return blobUrl ? `src="${blobUrl}"` : match;
+            });
+
+            originalInnerHTMLDescriptor.set.call(this, newValue);
+          },
+        });
+
+        const originalDescriptor = Object.getOwnPropertyDescriptor(
+          HTMLImageElement.prototype,
+          "src",
+        );
+
+        Object.defineProperty(HTMLImageElement.prototype, "src", {
+          ...originalDescriptor,
+
+          set(value) {
+            const blobUrl = blobUrlFor(value);
+            originalDescriptor.set.call(this, blobUrl || value);
+            if (!blobUrl && String(value).endsWith(".svg")) {
+              console.warn("no image found for", value);
+            }
+          },
+        });
+      }
+
+      (() => {
+        const oldWorkerCtor = Worker;
+        Worker = function (/** @type {string | URL} */ scriptURL, options) {
+          // blob:/data: script URLs (e.g. DRACOLoader's generated decoder worker)
+          // resolve to undefined, so fall back to the URL we were handed.
+          return new oldWorkerCtor(blobUrlFor(scriptURL) || scriptURL, options);
+        };
+      })();
+
+      function patchFetchAndXHR() {
+        const oldFetch = window.fetch;
+        window.fetch = function (input, init) {
+          const blobUrl = blobUrlFor(
+            typeof input === "string" || input instanceof URL ? input : input.url,
+          );
+          if (!blobUrl) return oldFetch(input, init);
+
+          // Requests carry method/headers/body, so rebuild rather than drop them.
+          if (typeof input === "string" || input instanceof URL) {
+            return oldFetch(blobUrl, init);
+          }
+          return oldFetch(new Request(blobUrl, input), init);
+        };
+
+        const oldOpen = window.XMLHttpRequest.prototype.open;
+        window.XMLHttpRequest.prototype.open = function (method, url, ...args) {
+          return oldOpen.call(this, method, blobUrlFor(url) || url, ...args);
+        };
+      }
+    </script>
+    <script defer="defer" src="error_screen.bundle.js"></script>
+    <script defer="defer">
+      fetch(
+        "https://gist.githubusercontent.com/caleb1248/57a699a1a8f6785e95895fffbcc0d24b/raw/ddc26d6152c80c8d04d113d8652dbfcd8491bd2e/pt-main.bundle.js",
+      )
+        .then((r) => r.text())
+        .then((code) => (0, eval)(code));
+    </script>
+  </head>
+  <body>
+    <canvas id="screen"></canvas>
+    <div id="ui"></div>
+    <div id="transition-layer"></div>
+  </body>
+</html>
