@@ -55,11 +55,6 @@ const PIECE_TABLE: Record<Pieces, Vec2[]> = {
   ],
 };
 
-const SPAWN_TABLE: Record<Pieces, Vec2> = {
-  [Pieces.I]: [3, 0],
-  [Pieces.J]: [3, 0],
-};
-
 /**
  * @param rotation 0 for top, 1 for right, 2 for bottom, 3 for left
  */
@@ -85,4 +80,20 @@ export function getSquaresTaken(
 
 function getSpawnPosition(piece: Pieces, gameState: GameState): Vec2 {
   const width = gameState.settings.width;
+  const result: Vec2 = [gameState.settings.height + 2, 0];
+
+  if (width % 2 === 0) {
+    // lets say its 4 wide, then we want to spawn at 1, which is (4-1)/2
+    result[0] = width / 2 - 1;
+  } else {
+    // lets say its 5 wide, then we want to spawn at 2, which is (5-1)/2
+    result[0] = (width - 1) / 2;
+  }
+
+  if (piece === Pieces.I) {
+    result[0] += 0.5;
+    result[1] -= 0.5;
+  }
+
+  return result;
 }

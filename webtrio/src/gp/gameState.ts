@@ -1,3 +1,4 @@
+import { setBoardSize } from '../canvasUtils';
 import type { Pieces } from '../colors';
 import type { Vec2 } from '../types';
 import { spawnPiece } from './piece';
@@ -27,6 +28,8 @@ export interface GameSettings {
 }
 
 export function newGame(settings: GameSettings): GameState {
+  setBoardSize(settings.width, settings.height);
+
   const state: GameState = {
     queue: [],
     current: {
