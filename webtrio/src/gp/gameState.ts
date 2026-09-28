@@ -1,9 +1,10 @@
-import { setBoardSize } from '../canvasUtils';
-import type { Pieces } from '../colors';
-import type { Vec2 } from '../types';
-import { spawnPiece } from './piece';
-import type { PieceOrder } from './pieceOrder';
-import * as pieceOrder from './pieceOrder';
+import { setBoardSize } from "../canvas";
+import type { Pieces } from "../colors";
+import type { RoomConfig } from "../room-config";
+import type { Vec2 } from "../types";
+import { spawnPiece } from "./piece";
+import type { PieceOrder } from "./pieceOrder";
+import * as pieceOrder from "./pieceOrder";
 
 export interface GameState {
   queue: Pieces[];
@@ -18,17 +19,32 @@ export interface GameState {
   board: (Pieces | null)[][];
 
   pieceOrder: PieceOrder;
-  settings: GameSettings;
+  config: RoomConfig;
+  stats: GameStats;
 }
 
-export interface GameSettings {
-  randomType: '7bag' | 'random';
-  width: number;
-  height: number;
+export interface GameStats {
+  /** milliseconds since start */
+  time: number;
+  /** self explanatory */
+  pieces: number;
+  /** num lines cleared */
+  lines: number;
+  /** pieces per second */
+  pps: number;
 }
 
-export function newGame(settings: GameSettings): GameState {
-  setBoardSize(settings.width, settings.height);
+function newPieceOrder(
+  bagtype: RoomConfig["game"]["options"]["bagtype"],
+): PieceOrder {
+  if (bagtype === "7-bag") return pieceOrder.bag(7);
+  if (bagtype === "14-bag") return pieceOrder.bag(14);
+  return pieceOrder.random();
+}
+
+export function newGame(config: RoomConfig): GameState {
+  const { boardwidth, boardheight, bagtype } = config.game.options;
+  setBoardSize(boardwidth, boardheight);
 
   const state: GameState = {
     queue: [],
@@ -38,11 +54,17 @@ export function newGame(settings: GameSettings): GameState {
       rotation: 0,
     },
     hold: null,
-    board: Array(settings.height)
+    board: Array(boardheight)
       .fill(null)
-      .map(() => Array(settings.width).fill(null)),
-    pieceOrder: settings.randomType === '7bag' ? pieceOrder.bag(7) : pieceOrder.random(),
-    settings,
+      .map(() => Array(boardwidth).fill(null)),
+    pieceOrder: newPieceOrder(bagtype),
+    stats: {
+      time: 0,
+      pieces: 0,
+      lines: 0,
+      pps: 0,
+    },
+    config,
   };
 
   spawnPiece(state);

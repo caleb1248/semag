@@ -33,8 +33,7 @@
         "ESCAPE"
       ],
       "retry": [
-        "KEYR",
-        ""
+        "KEYR"
       ],
       "chat": [
         "ENTER"
@@ -79,7 +78,7 @@
   },
   "handling": {
     "arr": 0,
-    "das": 6,
+    "das": 10,
     "dcd": 0,
     "sdf": 41,
     "safelock": true,

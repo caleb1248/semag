@@ -1,4 +1,4 @@
-import { drawBuffer, rows, columns } from '../canvasUtils';
+import { drawBuffer, rows, columns } from "../canvas";
 
 export function clearRow(row: number) {
   // shifts everything above the line down by one row

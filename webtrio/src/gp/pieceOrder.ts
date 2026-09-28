@@ -1,4 +1,4 @@
-import type { Pieces } from '../colors';
+import type { Pieces } from "../colors";
 
 export interface PieceOrder {
   next(): Pieces;
@@ -12,11 +12,12 @@ export function random(): PieceOrder {
 
 export function bag(length: number): PieceOrder {
   const bag: Pieces[] = Array.from({ length }, (_, i) => (i % 7) as Pieces);
-  let index = 0;
+  let index = bag.length; // start at the end so it gets shuffled immediately
 
   return {
     next: () => {
       if (index >= bag.length) {
+        console.log("the bag is", bag);
         // shuffle the bag
         for (let i = bag.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -24,6 +25,7 @@ export function bag(length: number): PieceOrder {
         }
         index = 0;
       }
+      console.log("loading piece", index);
       return bag[index++] as Pieces;
     },
   };

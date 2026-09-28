@@ -1,6 +1,6 @@
-import { Pieces } from '../colors';
-import type { Vec2 } from '../types';
-import type { GameState } from './gameState';
+import { Pieces } from "../colors";
+import type { Vec2 } from "../types";
+import type { GameState } from "./gameState";
 
 export function spawnPiece(state: GameState) {
   const nextPiece = state.queue.shift()!;
@@ -10,7 +10,7 @@ export function spawnPiece(state: GameState) {
   state.current.rotation = 0;
 }
 
-const PIECE_TABLE: Record<Pieces, Vec2[]> = {
+const PIECE_POSITION_TABLE: Record<Pieces, Vec2[]> = {
   [Pieces.I]: [
     [-1.5, 0.5],
     [-0.5, 0.5],
@@ -71,7 +71,7 @@ export function getSquaresTaken(
   center: { x: number; y: number },
   rotation: number,
 ): Vec2[] {
-  const offsets = PIECE_TABLE[piece];
+  const offsets = PIECE_POSITION_TABLE[piece];
   return offsets.map(([x, y]) => {
     const [rx, ry] = piece === Pieces.O ? [x, y] : rotatePoint(x, y, rotation);
     return [center.x + rx, center.y + ry];
@@ -79,8 +79,8 @@ export function getSquaresTaken(
 }
 
 function getSpawnPosition(piece: Pieces, gameState: GameState): Vec2 {
-  const width = gameState.settings.width;
-  const result: Vec2 = [gameState.settings.height + 2, 0];
+  const { boardwidth: width, boardheight } = gameState.config.game.options;
+  const result: Vec2 = [0, boardheight + 1];
 
   if (width % 2 === 0) {
     // lets say its 4 wide, then we want to spawn at 1, which is (4-1)/2
@@ -96,4 +96,16 @@ function getSpawnPosition(piece: Pieces, gameState: GameState): Vec2 {
   }
 
   return result;
+}
+
+/**
+ * Swaps the current piece with the held one. Assumes the hold slot is occupied;
+ * the queue is left untouched.
+ */
+export function spawnPieceFromHold(state: GameState) {
+  const held = state.hold!;
+  state.hold = state.current.piece;
+  state.current.piece = held;
+  state.current.center = getSpawnPosition(held, state);
+  state.current.rotation = 0;
 }
