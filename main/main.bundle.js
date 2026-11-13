@@ -1,8 +1,8 @@
 (async () => {
-  await downloadFiles();
-  alert("downloaded");
-  patchFetchAndXHR();
-  await replaceSvgsWithDataUrls();
+  // await downloadFiles();
+  // alert("downloaded");
+  // patchFetchAndXHR();
+  // await replaceSvgsWithDataUrls();
   var e,
     t = {
       11: (e, t, n) => {
@@ -43480,8 +43480,9 @@
           else {
             var a = new Promise((n, i) => (r = e[t] = [n, i]));
             n.push((r[2] = a));
-            var s = i.p + i.u(t),
+            var s = i.p + i.u((console.log("t", t), t)),
               o = new Error();
+            console.log("s", t);
             i.l(
               s,
               (n) => {

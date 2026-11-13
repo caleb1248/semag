@@ -19,6 +19,7 @@ createServer(async (req, res) => {
     subpathPrefix + (pathname.endsWith("/") ? pathname + "index.html" : pathname),
   );
   if (!(await file.exists())) {
+    console.log('did not exist');
     res.writeHead(404).end("not found");
     return;
   }

@@ -3,7 +3,7 @@
 import { mkdir } from "node:fs/promises";
 import { relative, resolve, sep } from "node:path";
 
-const harFile = "RELATIVE_PATH_TO_YOUR_HAR_FILE.har"; // Replace with the path to your HAR file
+const harFile = "funny-school.github.io.har"; // Replace with the path to your HAR file
 const outputDirectory = "extracted";
 
 type HarEntry = {

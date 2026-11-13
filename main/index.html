@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <!-- <script src="https://cdn.jsdelivr.net/npm/eruda" onload="eruda.init()"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda" onload="eruda.init()"></script>
     <meta
       name="viewport"
       content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"
@@ -91,8 +91,7 @@
               reject(err);
             }
           });
-
-          document.body.appendChild(container);
+          // document.body.appendChild(container);
         });
       }
 
@@ -225,19 +224,27 @@
           return oldOpen.call(this, method, blobUrlFor(url) || url, ...args);
         };
       }
+      const oldOpen = window.XMLHttpRequest.prototype.open;
+      window.XMLHttpRequest.prototype.open = function (method, url, ...args) {
+        console.log("xhr.open(" + url.toString() + ")");
+        return oldOpen.call(this, method, blobUrlFor(url) || url, ...args);
+      };
     </script>
     <script defer="defer" src="error_screen.bundle.js"></script>
-    <script defer="defer">
+    <script defer="defer" src="main.bundle.js"></script>
+    <!-- <script defer="defer">
       fetch(
         "https://gist.githubusercontent.com/caleb1248/57a699a1a8f6785e95895fffbcc0d24b/raw/ddc26d6152c80c8d04d113d8652dbfcd8491bd2e/pt-main.bundle.js",
       )
         .then((r) => r.text())
         .then((code) => (0, eval)(code));
-    </script>
+    </script> -->
   </head>
   <body>
     <canvas id="screen"></canvas>
     <div id="ui"></div>
     <div id="transition-layer"></div>
+
+    <script src="main.bundle.js"></script>
   </body>
 </html>
